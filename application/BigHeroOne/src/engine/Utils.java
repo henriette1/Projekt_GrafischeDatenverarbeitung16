@@ -14,18 +14,20 @@ public class Utils {
 	/*
 	 * calculates the vector product which delivers the up vector for our camera (always in y-direction
 	 */
-	public static Vector3f normalizeVector(Vector3f main, Vector3f vec1, Vector3f vec2) {
+	public static Vector3f calculateNormalVector(Vector3f a, int x, int z, float heightXplusOne, float heightZplusOne) {
 		
-		Vector3f vecX = new Vector3f(vec1.x - main.x, vec1.y - main.y, vec1.z - main.z);
-		Vector3f vecZ = new Vector3f(vec2.x - main.x, vec2.y - main.y, vec2.z - main.z);
+		Vector3f vecX = new Vector3f(a.x + 1f, heightXplusOne, a.z);
+		Vector3f vecZ = new Vector3f(a.x, heightZplusOne, a.z  + 1f);
 		
+		Vector3f diffVecX = Utils.calculateDifferenceVector(a, vecX);
+		Vector3f diffVecZ = Utils.calculateDifferenceVector(a, vecZ);
 		
 		Vector3f normal = new Vector3f();
-		normal.x = vecZ.z * vecX.y - vecZ.y * vecX.z;
-		normal.y = vecZ.x * vecX.z - vecZ.z * vecX.x;
-		normal.z = vecZ.y * vecX.x - vecZ.x * vecX.y;
+		normal.x = diffVecX.y * diffVecZ.z - diffVecX.z * diffVecZ.y;
+		normal.y = diffVecX.z * diffVecZ.x - diffVecX.x * diffVecZ.z;
+		normal.z = diffVecX.x * diffVecZ.y - diffVecX.y * diffVecZ.x;
 		
-		normal = normal.normalize();
+		normal.normalize(normal);
 		
 		return normal;
 	}

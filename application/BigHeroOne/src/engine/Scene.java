@@ -34,7 +34,7 @@ public class Scene {
 	private Player player;
 	private Camera camera = new Camera(player);
 	private Ground floor = new Ground();
-//	private Cave cave = new Cave(0, 0, "heightMap");
+//	private Cave cave = new Cave("heightMap");
 	
     /*
      * sets up our scene
@@ -154,4 +154,5 @@ public class Scene {
 	public void setCamera(Camera camera) {
 		this.camera = camera;
 	}
+
 }
