@@ -8,20 +8,24 @@ import org.joml.Vector3f;
 import engine.Utils;
 import static org.lwjgl.opengl.GL11.*;
 
-public class Cave {
+public class Terrain {
 	
-	private static final float MAX_HEIGHT = 40;
+	private static final float MAX_HEIGHT = 70;
 	private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
 	private static final float SIZE = 100;
 	
 	private BufferedImage HeightMapMesh;
 	
 	private int index;
+	private int WIDTH;
+	private int HEIGHT;
 	
-	public Cave(int index) {
+	public Terrain(int index) {
 		loadHeightMap();
 		this.index = index;
-		compileList();
+		System.out.println(index);
+		compileCaveList();
+		compileGroundList();
 	}
 	
 	private void loadHeightMap() {
@@ -32,10 +36,10 @@ public class Cave {
 		}		
 	}
 	
-	public void compileList() {
+	public void compileCaveList() {
 		
-		int WIDTH = HeightMapMesh.getWidth();
-		int HEIGHT = HeightMapMesh.getHeight();
+		WIDTH = HeightMapMesh.getWidth();
+		HEIGHT = HeightMapMesh.getHeight();
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glNewList(this.index, GL_COMPILE);
@@ -70,9 +74,34 @@ public class Cave {
 		glEndList();
 	}
 	
-	public void generateTerrain() {
+	public void compileGroundList() {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glNewList(this.index + 1, GL_COMPILE);
+			for(int z = 0; z < HEIGHT; z++) {
+				glBegin(GL_TRIANGLE_STRIP);
+				for(int x = 0; x < WIDTH; x++) {
+//					glMaterialf(GL_FRONT, )
+					Vector3f firstPoint= new Vector3f(x, 0.f, z);
+					
+					Vector3f normalOne = Utils.calculateNormalVector(firstPoint, x, z, 0, 0);
+					
+					glNormal3f(normalOne.x, normalOne.y, normalOne.z);
+					glVertex3f(x, 0.f, z);
+//					glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
+					glVertex3f(x, 0, z + 1);
+				}
+				glEnd();
+			}
+		glEndList();
+	}
+	
+	public void generateCave() {
 		glCallList(this.index);
 	}
+	
+	public void generateGround() {
+		glCallList(this.index + 1);
+	};
 	
 	private float getHeight(int x, int z, BufferedImage image) {
 		if(x < 0 || x >= image.getHeight() || z < 0 || z >= image.getHeight()) {

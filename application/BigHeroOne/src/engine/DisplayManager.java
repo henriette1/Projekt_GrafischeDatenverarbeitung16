@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import entities.Camera;
-import entities.Cave;
+import entities.Terrain;
 import entities.Model;
 import entities.Player;
 
@@ -39,7 +39,7 @@ public class DisplayManager {
 
 	protected boolean inWindow = false;
 
-	private Cave cave;
+	private Terrain terrain;
 
     public void run()
     {
@@ -153,9 +153,9 @@ public class DisplayManager {
 
         // Create a new GLCapabilities instance for the OpenGL context that is current in the current thread
         GL.createCapabilities();
-        int index = glGenLists(1);
-        cave = new Cave( index);
-        scene.setCave(cave);
+        int index = glGenLists(2);
+        terrain = new Terrain(index);
+        scene.setTerrain(terrain);
     }
 
     private void loop()

@@ -1,7 +1,6 @@
 package engine;
 
 import java.nio.FloatBuffer;
-import org.lwjgl.opengl.*;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
@@ -9,8 +8,7 @@ import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
 
 import entities.Camera;
-import entities.Cave;
-import entities.Ground;
+import entities.Terrain;
 import entities.Player;
 
 public class Scene {
@@ -33,8 +31,7 @@ public class Scene {
 	
 	private Player player;
 	private Camera camera = new Camera(player);
-	private Ground floor = new Ground();
-	private Cave cave;
+	private Terrain terrain;
 	
     /*
      * sets up our scene
@@ -74,7 +71,7 @@ public class Scene {
     	glLoadMatrixf(fb);
     	
     	glPushMatrix();
-    		cave.generateTerrain();
+    		terrain.generateCave();
     	glPopMatrix();
     	
     	glPushMatrix();
@@ -83,7 +80,7 @@ public class Scene {
     		player.getModel().draw();
     	glPopMatrix();
     	glPushMatrix();
-            floor.draw();
+            terrain.generateGround();
         glPopMatrix();
         
     }
@@ -153,8 +150,8 @@ public class Scene {
 		this.camera = camera;
 	}
 
-	public void setCave(Cave cave) {
-		this.cave = cave;
+	public void setTerrain(Terrain cave) {
+		this.terrain = cave;
 		
 	}
 
