@@ -95,8 +95,9 @@ public class Camera {
 			distanceFromPlayer = 15f;
 		}
 		else {
-			float zoomLevel = dyZoom * 0.1f;
+			float zoomLevel = dyZoom * 0.5f;
 			distanceFromPlayer -= zoomLevel;
+			dyZoom = 0;
 		}
 	}
 
