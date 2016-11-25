@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import entities.Camera;
+import entities.Cave;
 import entities.Model;
 import entities.Player;
 
@@ -37,6 +38,8 @@ public class DisplayManager {
 	private Camera camera = new Camera(player);
 
 	protected boolean inWindow = false;
+
+	private Cave cave;
 
     public void run()
     {
@@ -150,6 +153,9 @@ public class DisplayManager {
 
         // Create a new GLCapabilities instance for the OpenGL context that is current in the current thread
         GL.createCapabilities();
+        int index = glGenLists(1);
+        cave = new Cave( index);
+        scene.setCave(cave);
     }
 
     private void loop()
@@ -159,7 +165,7 @@ public class DisplayManager {
         // LWJGL detects the context that is current in the current thread,
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
-
+    	
         scene.initGLState();
 
         // Run the rendering loop until the user has attempted to close

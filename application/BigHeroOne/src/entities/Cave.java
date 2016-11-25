@@ -18,49 +18,63 @@ public class Cave {
 	
 	private int index;
 	
-	public Cave(String imageName) {
-		try {
-			HeightMapMesh = ImageIO.read(new File ("resources/" + imageName+ ".png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.index = glGenLists(1);
+	public Cave(int index) {
+		loadHeightMap();
+		this.index = index;
 		compileList();
 	}
 	
-	public void compileList() {
-		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	private void loadHeightMap() {
+		try {
+			HeightMapMesh = ImageIO.read(new File ("heightMap.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
 
-		for(int z = 0; z < HeightMapMesh.getHeight(); z++) {
-			glNewList(this.index, GL_COMPILE);
+	public void compileList() {
+//		int WIDTH = HeightMapMesh.getWidth();
+		int HEIGHT = 1;
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glNewList(index, GL_COMPILE);
+			glColor3f(0.f, 1.f, 1.f);
+			for(int z = 0; z < SIZE; z++) {
 				glBegin(GL_TRIANGLE_STRIP);
-				for(int x = 0; x < HeightMapMesh.getWidth(); x++) {
-					Vector3f drawnVecOne = new Vector3f();
-					drawnVecOne.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
-					drawnVecOne.y = getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2;
-					drawnVecOne.z = (SIZE + (float)(z) / HeightMapMesh.getHeight()) - SIZE / 2;
+				for(int x = 0; x < SIZE; x++) {
+//					Vector3f drawnVecOne = new Vector3f();
+//					drawnVecOne.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
+//					drawnVecOne.y = getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2;
+//					drawnVecOne.z = (SIZE + (float)(z) / HeightMapMesh.getHeight()) - SIZE / 2;
 					
-					Vector3f drawnVecTwo = new Vector3f();
-					drawnVecTwo.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
-					drawnVecTwo.y = getHeight(x, z + 1, HeightMapMesh) + MAX_HEIGHT / 2;
-					drawnVecTwo.z = (SIZE + (float)(z + 1) / HeightMapMesh.getHeight()) - SIZE / 2;
+//					Vector3f drawnVecTwo = new Vector3f();
+//					drawnVecTwo.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
+//					drawnVecTwo.y = getHeight(x, z + 1, HeightMapMesh) + MAX_HEIGHT / 2;
+//					drawnVecTwo.z = (SIZE + (float)(z + 1) / HeightMapMesh.getHeight()) - SIZE / 2;
 					
 	//				Vector3f normalOne = Utils.calculateNormalVector(drawnVecOne, x, z, getHeight(x+1, z, HeightMapMesh), getHeight(x, z+1, HeightMapMesh));
 	//				Vector3f normalTwo = Utils.calculateNormalVector(drawnVecTwo, x, z, getHeight(x+1, z, HeightMapMesh), getHeight(x, z+1, HeightMapMesh));
 					
+					float heightMapHeightVertex1 = 1;
+					float heightMapHeightVertex2 = 1;
+//					float heightMapHeightVertex1 = getHeight(x, z, HeightMapMesh);
+//					float heightMapHeightVertex2 = getHeight(x, z + 1, HeightMapMesh);
+					
 	//				glNormal3f(normalOne.x, normalOne.y, normalOne.z);
-					glVertex3f(drawnVecOne.x, drawnVecOne.y, drawnVecOne.z);
+					glVertex3f((SIZE * (float) (x) / HEIGHT) - SIZE / 2, 
+							heightMapHeightVertex1 + MAX_HEIGHT / 2, 
+							(SIZE + (float)(z) / HEIGHT) - SIZE / 2);
 	//				glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
-					glVertex3f(drawnVecTwo.x, drawnVecTwo.y, drawnVecTwo.z);
+					glVertex3f((SIZE * (float) (x) / HEIGHT) - SIZE / 2, 
+							heightMapHeightVertex2 + MAX_HEIGHT / 2, 
+							(SIZE + (float)(z + 1) / HEIGHT) - SIZE / 2);
 				}
 				glEnd();
-			glEndList();
-		}
+			}
+		glEndList();
 	}
 	
 	public void generateTerrain() {
-		glCallList(this.index);
+		glCallList(index);
 	}
 	
 	private float getHeight(int x, int z, BufferedImage image) {
@@ -71,6 +85,6 @@ public class Cave {
 		height += MAX_PIXEL_COLOR / 2f;
 		height /= MAX_PIXEL_COLOR / 2f;
 		height *= MAX_HEIGHT/2f;
-		return height;
+		return 1;
 	}
 }

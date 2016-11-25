@@ -34,14 +34,13 @@ public class Scene {
 	private Player player;
 	private Camera camera = new Camera(player);
 	private Ground floor = new Ground();
-//	private Cave cave = new Cave("heightMap");
+	private Cave cave;
 	
     /*
      * sets up our scene
      */
     public void initGLState() {
     	
-
     	m.setPerspective(fovy, aspect, zNear, zFar);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -49,7 +48,6 @@ public class Scene {
         m.get(fb);
         
         glLoadMatrixf(fb);
-//        glFrustum(-2.0, 2.0, -2.0, 2.0, 0, 2.0);
         
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -76,12 +74,12 @@ public class Scene {
     	glLoadMatrixf(fb);
     	
     	glPushMatrix();
-//    		cave.generateTerrain();
+    		cave.generateTerrain();
     	glPopMatrix();
     	
     	glPushMatrix();
-			GL11.glTranslatef(player.getPosition().x, player.getPosition().y, player.getPosition().z);
-			GL11.glRotatef(player.getRotY(), 0, 1, 0);
+			glTranslatef(player.getPosition().x, player.getPosition().y, player.getPosition().z);
+			glRotatef(player.getRotY(), 0, 1, 0);
     		player.getModel().draw();
     	glPopMatrix();
     	glPushMatrix();
@@ -153,6 +151,11 @@ public class Scene {
 	}
 	public void setCamera(Camera camera) {
 		this.camera = camera;
+	}
+
+	public void setCave(Cave cave) {
+		this.cave = cave;
+		
 	}
 
 }
