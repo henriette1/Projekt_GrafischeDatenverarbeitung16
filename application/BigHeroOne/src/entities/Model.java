@@ -1,8 +1,10 @@
 package entities;
 
+import character.MyCharacter;
+
 public class Model {
 
-private PlayerModel bigHeroSix = new PlayerModel();
+private MyCharacter bigHeroSix = new MyCharacter();
 	
 	public Model() {
 		
