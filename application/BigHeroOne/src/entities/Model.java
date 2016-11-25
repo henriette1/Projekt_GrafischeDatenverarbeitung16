@@ -12,7 +12,7 @@ private MyCharacter bigHeroSix = new MyCharacter();
 	/*
 	 * draws player model
 	 */
-	public void draw() {
-		bigHeroSix.draw();
+	public void draw(float winkel) {
+		bigHeroSix.draw(winkel);
 	}
 }

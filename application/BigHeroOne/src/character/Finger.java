@@ -11,7 +11,7 @@ public class Finger {
 			doFinger();
 			glTranslatef(2*rFinger,0.f,0.f);
 			doFinger();
-			glTranslatef(2*rFinger,3*intervalFinger/4.f,0.f);
+			glTranslatef(2*rFinger,2*intervalFinger,0.f);
 			glRotatef(90, 0, 0, 1);
 			doThumb();
 		glPopMatrix();

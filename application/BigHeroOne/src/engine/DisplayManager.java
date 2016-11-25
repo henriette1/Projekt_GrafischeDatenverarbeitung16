@@ -34,7 +34,7 @@ public class DisplayManager {
 	private static boolean mouseLeft = false;
 	private static boolean mouseRight = false;
 	private Model model = new Model();
-	private Player player = new Player(model, new Vector3f(0,0,0), 0, 0, 0, 1);
+	private Player player = new Player(model, new Vector3f(0,0,0), 0, 0, 0, .5f);
 	private Camera camera = new Camera(player);
 
 	protected boolean inWindow = false;

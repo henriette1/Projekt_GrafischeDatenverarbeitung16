@@ -62,7 +62,6 @@ public class Scene {
     {    
     	player.move();
     	camera.move();    
-    	
     	m.setLookAt(camera.getPosition(), 
     				player.getPosition(),
     				calculateUpVectorOfCameraPosition(secondOrthogonalVector));
@@ -72,17 +71,14 @@ public class Scene {
     	
     	glPushMatrix();
     		terrain.generateCave();
+    		terrain.generateGround();
     	glPopMatrix();
     	
     	glPushMatrix();
 			glTranslatef(player.getPosition().x, player.getPosition().y, player.getPosition().z);
 			glRotatef(player.getRotY(), 0, 1, 0);
-    		player.getModel().draw();
+    		player.getModel().draw(player.getMoveAngle());
     	glPopMatrix();
-    	glPushMatrix();
-            terrain.generateGround();
-        glPopMatrix();
-        
     }
     
     private void initLighting()

@@ -15,5 +15,13 @@ public class CompleteArm {
 			finger.drawFinger();
 		
 	}
+	
+	public float getIntervalArm(){
+		return arm.intervalArm;		
+	}
+	
+	public float getRadiusArm(){
+		return arm.rArm;
+	}
 
 }
