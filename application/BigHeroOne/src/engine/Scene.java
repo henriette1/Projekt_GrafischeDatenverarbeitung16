@@ -19,7 +19,7 @@ public class Scene {
     private float aspect = 1;
 	private float fovy = 90;
 	private float zNear = .1f;
-	private float zFar = 40;
+	private float zFar = 150;
 	private float zLight = 5;
 	private float shini = 200;
 	private float spotExpo = 67;

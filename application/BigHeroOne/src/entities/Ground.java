@@ -25,11 +25,11 @@ public class Ground {
 					Vector3f secondPoint= new Vector3f(x, 0.f, z + 1);
 					
 					Vector3f normalOne = Utils.calculateNormalVector(firstPoint, x, z, 0, 0);
-					Vector3f normalTwo = Utils.calculateNormalVector(secondPoint, x, z, 0, 0);
+//					Vector3f normalTwo = Utils.calculateNormalVector(secondPoint, x, z, 0, 0);
 					
 					glNormal3f(normalOne.x, normalOne.y, normalOne.z);
 					glVertex3f(x, 0.f, z);
-					glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
+//					glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
 					glVertex3f(x, 0, z + 1);
 					
 				}
