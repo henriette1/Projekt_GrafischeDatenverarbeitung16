@@ -45,7 +45,6 @@ public class Player extends Entity {
 			this.currentSpeed = -RUN_SPEED;
 			
 			
-			System.out.println(getMoveAngle());
         }
 		if ( key == GLFW_KEY_S && (action == GLFW_REPEAT) ) {	
 			if(getMoveAngle() >= 30 && richtung == 1)
@@ -59,7 +58,6 @@ public class Player extends Entity {
 			setMoveAngle(getMoveAngle()+(richtung*5));
         	this.currentSpeed = RUN_SPEED;
         	
-			System.out.println(getMoveAngle());
         }
 		
         if ( key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS) ) {

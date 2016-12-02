@@ -91,8 +91,8 @@ public class Camera {
 		if (distanceFromPlayer < 2f) {
 			distanceFromPlayer = 2f;
 		}
-		else if (distanceFromPlayer > 15f) {
-			distanceFromPlayer = 15f;
+		else if (distanceFromPlayer > 100f) {
+			distanceFromPlayer = 100f;
 		}
 		else {
 			float zoomLevel = dyZoom * 0.5f;

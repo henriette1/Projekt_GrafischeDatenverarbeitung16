@@ -14,10 +14,10 @@ public class Utils {
 	/*
 	 * calculates the vector product which delivers the up vector for our camera (always in y-direction
 	 */
-	public static Vector3f calculateNormalVector(Vector3f a, int x, int z, float heightXplusOne, float heightZplusOne) {
+	public static Vector3f calculateNormalVector(Vector3f a, float heightXplusOne, float heightZplusOne) {
 		
-		Vector3f vecX = new Vector3f(a.x + 1f, heightXplusOne, a.z);
-		Vector3f vecZ = new Vector3f(a.x, heightZplusOne, a.z  + 1f);
+		Vector3f vecZ = new Vector3f(a.x + 1f, heightXplusOne, a.z);
+		Vector3f vecX = new Vector3f(a.x, heightZplusOne, a.z  + 1f);
 		
 		Vector3f diffVecX = Utils.calculateDifferenceVector(a, vecX);
 		Vector3f diffVecZ = Utils.calculateDifferenceVector(a, vecZ);

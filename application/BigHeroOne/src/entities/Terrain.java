@@ -3,8 +3,11 @@ package entities;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
+
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import engine.Materials;
 import engine.Utils;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -13,6 +16,8 @@ public class Terrain {
 	private static final float MAX_HEIGHT = 70;
 	private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
 	private static final float SIZE = 100;
+	
+	private float [][] heightMapCoords; 
 	
 	private BufferedImage HeightMapMesh;
 	
@@ -23,10 +28,31 @@ public class Terrain {
 	public Terrain(int index) {
 		loadHeightMap();
 		this.index = index;
-		System.out.println(index);
 		compileCaveList();
 		compileGroundList();
+		compileNormalsCaveList();
+		compileNormalsGroundList();
 	}
+	
+	public void generateCave() {
+		glPushMatrix();
+			Materials.materialCave();
+			glCallList(this.index);
+		glPopMatrix();
+//		glPushMatrix();
+//			glCallList(this.index+2);
+//		glPopMatrix();
+	}
+	
+	public void generateGround() {
+		glPushMatrix();
+//			Materials.materialGround();
+			glCallList(this.index + 1);
+		glPopMatrix();
+//		glPopMatrix();
+//			glCallList(this.index+3);
+//		glPopMatrix();
+	};
 	
 	private void loadHeightMap() {
 		try {
@@ -36,72 +62,116 @@ public class Terrain {
 		}		
 	}
 	
-	public void compileCaveList() {
+	private void compileCaveList() {
 		
 		WIDTH = HeightMapMesh.getWidth();
 		HEIGHT = HeightMapMesh.getHeight();
+		heightMapCoords = new float[WIDTH][HEIGHT];
+		System.out.println(WIDTH + "\t" + HEIGHT);
 		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glNewList(this.index, GL_COMPILE);
-			for(int z = 0; z < HEIGHT; z++) {
+			for(int z = 0; z < (HEIGHT-1); z++) {
 				glBegin(GL_TRIANGLE_STRIP);
+				glColor3f(1.f, 1.f, 1.f);
 				for(int x = 0; x < WIDTH; x++) {
-					glColor3f(1.f, 1.f, 1.f);
-					Vector3f drawnVecOne = new Vector3f();
-					drawnVecOne.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
-					drawnVecOne.y = getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2;
-					drawnVecOne.z = (SIZE + (float)(z) / HeightMapMesh.getHeight()) - SIZE / 2;
 					
-					Vector3f drawnVecTwo = new Vector3f();
-					drawnVecTwo.x = (SIZE * (float) (x) / HeightMapMesh.getWidth()) - SIZE / 2;
-					drawnVecTwo.y = getHeight(x, z + 1, HeightMapMesh) + MAX_HEIGHT / 2;
-					drawnVecTwo.z = (SIZE + (float)(z + 1) / HeightMapMesh.getHeight()) - SIZE / 2;
+					heightMapCoords[x][z] = getHeight(x, z, HeightMapMesh);
 					
-					Vector3f normalOne = Utils.calculateNormalVector(drawnVecOne, z, x, getHeight(x+1, z, HeightMapMesh), getHeight(x, z+1, HeightMapMesh));
-//					Vector3f normalTwo = Utils.calculateNormalVector(drawnVecTwo, z, x, getHeight(x+1, z, HeightMapMesh), getHeight(x, z+1, HeightMapMesh));
+					Vector3f drawnVecOne = new Vector3f(x, 
+							getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2, 
+							z);
+
+					Vector3f normalOne = Utils.calculateNormalVector(
+							drawnVecOne, 
+							getHeight(x+1, z, HeightMapMesh) + MAX_HEIGHT / 2, 
+							getHeight(x, z-1, HeightMapMesh) + MAX_HEIGHT / 2);
 					
-					glNormal3f(normalOne.x, normalOne.y, normalOne.z);
+					glNormal3f(-normalOne.x, -normalOne.y, -normalOne.z);
 					glVertex3f(x, 
 							getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2, 
 							z);
-	//				glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
 					glVertex3f(x, 
 							getHeight(x, z + 1, HeightMapMesh) + MAX_HEIGHT / 2, 
-							z+1);
+							(z+1));
 				}
 				glEnd();
 			}
 		glEndList();
 	}
 	
-	public void compileGroundList() {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	private void compileGroundList() {
 		glNewList(this.index + 1, GL_COMPILE);
-			for(int z = 0; z < HEIGHT; z++) {
+			for(int z = 0; z < HEIGHT-1; z++) {
 				glBegin(GL_TRIANGLE_STRIP);
+//					glColor3f(1.f, 1.f, 1.f);
 				for(int x = 0; x < WIDTH; x++) {
-//					glMaterialf(GL_FRONT, )
-					Vector3f firstPoint= new Vector3f(x, 0.f, z);
+					Vector3f firstPoint= new Vector3f(x, 0.1f, z);
 					
-					Vector3f normalOne = Utils.calculateNormalVector(firstPoint, x, z, 0, 0);
+					Vector3f normalGround = Utils.calculateNormalVector(firstPoint, 0, 0);
 					
-					glNormal3f(normalOne.x, normalOne.y, normalOne.z);
-					glVertex3f(x, 0.f, z);
-//					glNormal3f(normalTwo.x, normalTwo.y, normalTwo.z);
-					glVertex3f(x, 0, z + 1);
+					glNormal3f(normalGround.x, normalGround.y, normalGround.z);
+					glVertex3f(x, 0.1f, z);
+					glVertex3f(x, 0.1f, (z + 1));
+					
+					
 				}
 				glEnd();
 			}
 		glEndList();
 	}
 	
-	public void generateCave() {
-		glCallList(this.index);
+	private void compileNormalsCaveList() {
+		WIDTH = HeightMapMesh.getWidth();
+		HEIGHT = HeightMapMesh.getHeight();
+		
+		glNewList(this.index+2, GL_COMPILE);
+			for(int z = 0; z < HEIGHT-1; z++) {
+				for(int x = 0; x < WIDTH; x++) {
+					
+					Vector3f drawnVecOne = new Vector3f(x, 
+							getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2, 
+							z);
+
+					Vector3f normalOne = Utils.calculateNormalVector(
+							drawnVecOne, 
+							getHeight(x+1, z, HeightMapMesh) + MAX_HEIGHT / 2, 
+							getHeight(x, z+1, HeightMapMesh) + MAX_HEIGHT / 2);
+					
+					glBegin(GL_LINES);
+						glColor3f(0, 0, 1.f);
+						glVertex3f(drawnVecOne.x, drawnVecOne.y, drawnVecOne.z);
+						glVertex3f(drawnVecOne.x - normalOne.x, 
+								drawnVecOne.y - normalOne.y, 
+								drawnVecOne.z - normalOne.z);
+					glEnd();
+				}
+			}
+		glEndList();
 	}
 	
-	public void generateGround() {
-		glCallList(this.index + 1);
-	};
+	private void compileNormalsGroundList() {
+		glNewList(this.index + 3, GL_COMPILE);
+		for(int z = 0; z < HEIGHT-1; z++) {
+			for(int x = 0; x < WIDTH; x++) {
+				Vector3f firstPoint= new Vector3f(x, 0.1f, z);
+				
+				Vector3f normalGround = Utils.calculateNormalVector(firstPoint, .1f, .1f);
+				
+				glBegin(GL_LINES);
+					glColor3f(0, 0, 1.f);
+					glVertex3f(firstPoint.x, firstPoint.y, firstPoint.z);
+					glVertex3f(firstPoint.x + normalGround.x, 
+							firstPoint.y + normalGround.y, 
+							firstPoint.z + normalGround.z);
+				glEnd();
+				
+				
+			}
+		}
+	glEndList();
+	}
+	
+
 	
 	private float getHeight(int x, int z, BufferedImage image) {
 		if(x < 0 || x >= image.getHeight() || z < 0 || z >= image.getHeight()) {
@@ -112,5 +182,9 @@ public class Terrain {
 		height /= MAX_PIXEL_COLOR / 2f;
 		height *= MAX_HEIGHT/2f;
 		return height;
+	}
+	
+	public void deleteLists() {
+		glDeleteLists(this.index, 2);
 	}
 }

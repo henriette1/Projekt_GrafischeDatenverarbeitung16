@@ -58,6 +58,7 @@ public class DisplayManager {
             // Once this is called, you must again call glfwInit successfully before you will be able to use 
             // most GLFW functions.
             glfwTerminate();
+            scene.getTerrain().deleteLists();
 
             // Free the error callback
             glfwSetErrorCallback(null).free();
@@ -153,7 +154,7 @@ public class DisplayManager {
 
         // Create a new GLCapabilities instance for the OpenGL context that is current in the current thread
         GL.createCapabilities();
-        int index = glGenLists(2);
+        int index = glGenLists(4);
         terrain = new Terrain(index);
         scene.setTerrain(terrain);
     }

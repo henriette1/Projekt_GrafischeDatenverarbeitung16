@@ -18,11 +18,12 @@ public class Scene {
 	private float fovy = 90;
 	private float zNear = .1f;
 	private float zFar = 150;
+	
 	private float zLight = 5;
 	private float shini = 200;
 	private float spotExpo = 67;
 	
-	private Lightning l1 = new Lightning(GL_LIGHT1);
+	private Lightning pointLght = new Lightning(GL_LIGHT1);
 	
 	private Vector3f secondOrthogonalVector = new Vector3f(0, 1, 0);
 	private Matrix4f m = new Matrix4f();
@@ -51,8 +52,8 @@ public class Scene {
         
         /* Smooth-Shading soll benutzt werden */
 	    glShadeModel( GL_FLAT );
-	    
-//	    initLighting();
+	    glEnable(GL_NORMALIZE);
+	    initLighting();
     }
     
     /*
@@ -69,7 +70,10 @@ public class Scene {
     	
     	glLoadMatrixf(fb);
     	
+    	updatePointLight();
+    	
     	glPushMatrix();
+    		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
     		terrain.generateCave();
     		terrain.generateGround();
     	glPopMatrix();
@@ -83,28 +87,34 @@ public class Scene {
     
     private void initLighting()
 	{
-	    float light1_position [] = { 0.0f, 0.0f, zLight, 1.0f };
+    	float light1_position [] = { player.getPosition().x, 1.0f, player.getPosition().z, 1.0f }; //x,y,z,1
 	    float light1_diff_spec [] = { 0.714f, 0.714f, 0.714f, 1.0f };
-	    float light1_direction [] = { 0, 0, -1, 1};
+	    float light1_direction [] = { 0, 0.0f, 0, 1};
 	    float light1_ambient [] = {0, 0, 0, 1};
 
-	    float lmodel_ambient [] = { 0.6f, 0.6f, 0.6f, 1.0f };
+	    float lmodel_ambient [] = { .5f, .5f, .5f, 1.0f };
 
 	    // Hintergrundbeleuchtung definieren
 	    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 	    
 	    // Eine weitere Lichtquellen definieren
-	    l1.setPosition(light1_position);
-	    l1.setDirection(light1_direction);
-	    l1.setDiffAndSpek(light1_diff_spec);
-	    l1.setAmbient(light1_ambient);
-	    l1.setCutoff(14f);
-	    l1.setExponent(spotExpo);
+	    pointLght.setPosition(light1_position);
+	    pointLght.setDirection(light1_direction);
+	    pointLght.setDiffAndSpek(light1_diff_spec);
+	    pointLght.setAmbient(light1_ambient);
 	    
 	    glEnable(GL_LIGHTING);
 	    
-	    l1.turnLightOn();
+	    pointLght.turnLightOn();
 	}
+    
+    private void updatePointLight() {
+    	float light1_position [] = { player.getPosition().x, 1.0f, player.getPosition().z, 1.0f }; //x,y,z,1
+	    
+    	
+	    // Eine weitere Lichtquellen definieren
+	    pointLght.setPosition(light1_position);
+    }
 	
     /*
      * calculates the vector showing to the center from cameraposition
@@ -147,8 +157,10 @@ public class Scene {
 	}
 
 	public void setTerrain(Terrain cave) {
-		this.terrain = cave;
-		
+		this.terrain = cave;	
 	}
 
+	public Terrain getTerrain() {
+		return this.terrain;
+	}
 }
