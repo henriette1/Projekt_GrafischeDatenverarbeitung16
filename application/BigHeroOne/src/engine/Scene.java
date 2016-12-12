@@ -18,17 +18,12 @@ public class Scene {
 	private float fovy = 90;
 	private float zNear = .1f;
 	private float zFar = 150;
-	
-	private float zLight = 5;
-	private float shini = 200;
-	private float spotExpo = 67;
-	
+
 	private Lightning pointLght = new Lightning(GL_LIGHT1);
 	
 	private Vector3f secondOrthogonalVector = new Vector3f(0, 1, 0);
 	private Matrix4f m = new Matrix4f();
 	private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
-
 	
 	private Player player;
 	private Camera camera = new Camera(player);
@@ -54,15 +49,18 @@ public class Scene {
 	    glShadeModel( GL_FLAT );
 	    glEnable(GL_NORMALIZE);
 	    initLighting();
+	    
+
     }
     
     /*
      * renders our models and defines the cameraposition
      */
     public void renderLoop()
-    {    
-    	player.move();
-    	camera.move();    
+    {   
+    	player.move(calculateVectorDirectionBetweenEyeAndCenter());
+    	camera.move();  
+
     	m.setLookAt(camera.getPosition(), 
     				player.getPosition(),
     				calculateUpVectorOfCameraPosition(secondOrthogonalVector));
@@ -71,7 +69,7 @@ public class Scene {
     	glLoadMatrixf(fb);
     	
     	updatePointLight();
-    	
+		
     	glPushMatrix();
     		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);	
     		terrain.generateCave();

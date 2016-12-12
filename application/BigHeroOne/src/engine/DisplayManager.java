@@ -34,7 +34,7 @@ public class DisplayManager {
 	private static boolean mouseLeft = false;
 	private static boolean mouseRight = false;
 	private Model model = new Model();
-	private Player player = new Player(model, new Vector3f(0,0,0), 0, 0, 0, .5f);
+	private Player player = new Player(model, new Vector3f(10,0,500), 0, 0, 0, .5f);
 	private Camera camera = new Camera(player);
 
 	protected boolean inWindow = false;
@@ -58,7 +58,7 @@ public class DisplayManager {
             // Once this is called, you must again call glfwInit successfully before you will be able to use 
             // most GLFW functions.
             glfwTerminate();
-            scene.getTerrain().deleteLists();
+//            scene.getTerrain().deleteLists();
 
             // Free the error callback
             glfwSetErrorCallback(null).free();
@@ -157,6 +157,8 @@ public class DisplayManager {
         int index = glGenLists(4);
         terrain = new Terrain(index);
         scene.setTerrain(terrain);
+        player.setTerrain(terrain);
+        
     }
 
     private void loop()

@@ -13,11 +13,11 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Terrain {
 	
-	private static final float MAX_HEIGHT = 70;
+	private static final float MAX_HEIGHT = 30;
 	private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
 	private static final float SIZE = 100;
 	
-	private float [][] heightMapCoords; 
+	public static float [][] heightMapCoords; 
 	
 	private BufferedImage HeightMapMesh;
 	
@@ -186,5 +186,13 @@ public class Terrain {
 	
 	public void deleteLists() {
 		glDeleteLists(this.index, 2);
+	}
+	
+	public float[][] getHeightMapCoords(){
+		return heightMapCoords;
+	}
+	
+	public float getMaxHeight(){
+		return MAX_HEIGHT;
 	}
 }
