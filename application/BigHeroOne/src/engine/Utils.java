@@ -31,4 +31,19 @@ public class Utils {
 		
 		return normal;
 	}
+	
+	public static Vector3f normalVector(Vector3f a, Vector3f b, Vector3f c){
+		
+		Vector3f firstVec = Utils.calculateDifferenceVector(a, b);
+		Vector3f secondVec = Utils.calculateDifferenceVector(a, c);
+		
+		Vector3f normal = new Vector3f();
+		normal.x = firstVec.y * secondVec.z - firstVec.z * secondVec.y;
+		normal.y = firstVec.z * secondVec.x - firstVec.x * secondVec.z;
+		normal.z = firstVec.x * secondVec.y - firstVec.y * secondVec.x;	
+		
+		normal.normalize(normal);
+		
+		return normal;
+	}
 }

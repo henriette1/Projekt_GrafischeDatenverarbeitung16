@@ -3,21 +3,23 @@ package character;
 //Imports
 import static org.lwjgl.opengl.GL11.*;
 
+import org.joml.Vector3f;
+
+import engine.Utils;
+
 public class Head {
 		
 		// private Variablen
-			int m = 30;															//u-Schritte
-			int n = 30;															//v-Schritte
-			float a = 1.5f;														//x-Achsenabschnitt
-			float b = 0.75f;														//y-Achsenabschnitt
-			float c = 1.2f;														//z-Achsenabschnitt
-			float u_i , u_i_1 , v_j , v_j_1;									//Eckpunkte einer Facette
-			float 	ua = (float) 0, ue = (float)(2*Math.PI),					//Anfang und Ende des u-Bereichs
-					va = (float) -(Math.PI/2.), ve = (float)(Math.PI/2.);		//Anfang und Ende des v-Bereichs
-			float deltaU = (float)(ue-ua)/m;									//wie groﬂ ein einzelner Teilschritt sein muss in u-Richtung
-			float deltaV = (float)(ve-va)/n;									//wie groﬂ ein einzelner Teilschritt sein muss in v-Richtung
-			float r = 1;														//Radius 
-			
+			int mHead = 30;															//u-Schritte
+			int nHead = 30;															//v-Schritte
+			float aHead = 1.5f;														//x-Achsenabschnitt
+			float bHead = 0.75f;														//y-Achsenabschnitt
+			float cHead = 1.2f;														//z-Achsenabschnitt
+			float u_iHead , u_i_1Head , v_jHead , v_j_1Head;									//Eckpunkte einer Facette
+			float 	uaHead = (float) 0, ueHead = (float)(2*Math.PI),					//Anfang und Ende des u-Bereichs
+					vaHead = (float) -(Math.PI/2.), veHead = (float)(Math.PI/2.);		//Anfang und Ende des v-Bereichs
+			float deltaUHead = (float)(ueHead-uaHead)/mHead;									//wie groﬂ ein einzelner Teilschritt sein muss in u-Richtung
+			float deltaVHead = (float)(veHead-vaHead)/nHead;									//wie groﬂ ein einzelner Teilschritt sein muss in v-Richtung
 
 		public void drawHead()
 		{	
@@ -41,42 +43,48 @@ public class Head {
 		
 		private void doHead()
 		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			glColor3f(1,1,1);
-			for(int i = 0; i<m; i++){
-				for(int j = 0; j<n; j++){
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+			for(int i = 0; i<mHead; i++){
+				for(int j = 0; j<nHead; j++){
 				
 				//Eckpunkte einer Facette deklarieren	
-				u_i 	= ua + i * deltaU;
-				u_i_1 	= u_i + deltaU;
-				v_j 	= va + j * deltaV;
-				v_j_1 	= v_j + deltaV;
+				u_iHead 	= uaHead + i * deltaUHead;
+				u_i_1Head 	= u_iHead + deltaUHead;
+				v_jHead 	= vaHead + j * deltaVHead;
+				v_j_1Head 	= v_jHead + deltaVHead;
+				
+				Vector3f normal = Utils.normalVector(
+						new Vector3f(xHead(u_iHead,v_jHead), yHead(u_iHead,v_jHead), zHead(u_iHead, v_jHead)),
+						new Vector3f(xHead(u_i_1Head,v_jHead), yHead(u_i_1Head,v_jHead), zHead(u_i_1Head, v_jHead)),
+						new Vector3f(xHead(u_iHead,v_j_1Head), yHead(u_iHead,v_j_1Head), zHead(u_iHead, v_j_1Head))).mul(-1);
 				
 				//Erstellung einer Facette
 				glBegin(GL_TRIANGLE_STRIP);
-					glVertex3f(x(u_i,v_j),			y(u_i,v_j), 		z(u_i, v_j));
-					glVertex3f(x(u_i_1,v_j),		y(u_i_1,v_j), 		z(u_i_1, v_j));
-					glVertex3f(x(u_i,v_j_1),		y(u_i,v_j_1), 		z(u_i, v_j_1));
-					glVertex3f(x(u_i_1,v_j_1),		y(u_i_1,v_j_1),		z(u_i_1, v_j_1));
+					glNormal3f(normal.x, normal.y, normal.z);
+					glVertex3f(xHead(u_iHead,v_jHead),			yHead(u_iHead,v_jHead), 		zHead(u_iHead, v_jHead));
+					glVertex3f(xHead(u_i_1Head,v_jHead),		yHead(u_i_1Head,v_jHead), 		zHead(u_i_1Head, v_jHead));
+					glVertex3f(xHead(u_iHead,v_j_1Head),		yHead(u_iHead,v_j_1Head), 		zHead(u_iHead, v_j_1Head));
+					glVertex3f(xHead(u_i_1Head,v_j_1Head),		yHead(u_i_1Head,v_j_1Head),		zHead(u_i_1Head, v_j_1Head));
 				glEnd();
 				}
 			}
 		}
 		
-		private float x(float u, float v){
+		private float xHead(float u, float v){
 				
-			return (float)(a* Math.cos(u)*Math.cos(v));
+			return (float)(aHead* Math.cos(u)*Math.cos(v));
 		
 		}
 		
-		private float y(float u, float v){
+		private float yHead(float u, float v){
 			
-			return (float)(b*Math.sin(v));
+			return (float)(bHead*Math.sin(v));
 		}	
 		
-		private float z(float u, float v){
+		private float zHead(float u, float v){
 			
-			return (float)(c* Math.sin(u)*Math.cos(v));
+			return (float)(cHead* Math.sin(u)*Math.cos(v));
 		}
 		
 		
@@ -90,8 +98,8 @@ public class Head {
 				
 		private void doConnection()
 		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			glColor3f(1,0,0);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 			for(int i = 0; i<mConnection; i++){
 				for(int j = 0; j<nConnection; j++){
 				
@@ -101,8 +109,14 @@ public class Head {
 				v_jConnection 		= vaConnection + j * deltaVConnection;
 				v_j_1Connection 	= v_jConnection + deltaVConnection;
 				
+				Vector3f normal = Utils.normalVector(
+						new Vector3f(xConnection(u_iConnection,v_jConnection), yConnection(u_iConnection,v_jConnection), zConnection(u_iConnection, v_jConnection)),
+						new Vector3f(xConnection(u_i_1Connection,v_jConnection), yConnection(u_i_1Connection,v_jConnection), zConnection(u_i_1Connection, v_jConnection)),
+						new Vector3f(xConnection(u_iConnection,v_j_1Connection), yConnection(u_iConnection,v_j_1Connection), zConnection(u_iConnection, v_j_1Connection)));
+				
 				//Erstellung einer Facette
-				glBegin(GL_TRIANGLE_STRIP);	
+				glBegin(GL_TRIANGLE_STRIP);
+					glNormal3f(normal.x, normal.y, normal.z);
 					glVertex3f(xConnection(u_iConnection,v_jConnection),				yConnection(u_iConnection,v_jConnection), 			zConnection(u_iConnection, v_jConnection));
 					glVertex3f(xConnection(u_i_1Connection,v_jConnection),			yConnection(u_i_1Connection,v_jConnection), 			zConnection(u_i_1Connection, v_jConnection));
 					glVertex3f(xConnection(u_iConnection,v_j_1Connection),			yConnection(u_iConnection,v_j_1Connection), 			zConnection(u_iConnection, v_j_1Connection));
@@ -114,18 +128,18 @@ public class Head {
 		
 		private float xConnection(float u, float v){
 			
-			return (float)(a* Math.cos(u)*Math.cos(v));		
+			return (float)(aHead* Math.cos(u)*Math.cos(v));		
 		}
 		
 		private float yConnection(float u, float v){
 			
-			return (float)(b*Math.sin(v));
+			return (float)(bHead*Math.sin(v));
 
 		}	
 		
 		private float zConnection(float u, float v){
 			
-			return (float)(c* Math.sin(u)*Math.cos(v));
+			return (float)(cHead* Math.sin(u)*Math.cos(v));
 		}
 		
 		int mEye = 15;														//u-Schritte
@@ -145,7 +159,6 @@ public class Head {
 		private void doEye()
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glColor3f(0,1,1);
 
 			for(int i = 0; i<mEye; i++){
 				for(int j = 0; j<nEye; j++){
@@ -156,13 +169,19 @@ public class Head {
 				v_jEye 		= vaEye + j * deltaVEye;
 				v_j_1Eye 	= v_jEye + deltaVEye;
 				
-				u_i 	= ua + i * deltaU;
-				u_i_1 	= u_i + deltaU;
-				v_j 	= va + j * deltaV;
-				v_j_1 	= v_j + deltaV;
+				u_iHead 	= uaHead + i * deltaUHead;
+				u_i_1Head 	= u_iHead + deltaUHead;
+				v_jHead 	= vaHead + j * deltaVHead;
+				v_j_1Head 	= v_jHead + deltaVHead;
+				
+				Vector3f normal = Utils.normalVector(
+						new Vector3f(xEye(u_iEye,v_jEye), yEye(u_iEye,v_jEye), zEye(u_iEye, v_jEye)),
+						new Vector3f(xEye(u_i_1Eye,v_jEye), yEye(u_i_1Eye,v_jEye), zEye(u_i_1Eye, v_jEye)),
+						new Vector3f(xEye(u_iEye,v_j_1Eye), yEye(u_iEye,v_j_1Eye), zEye(u_iEye, v_j_1Eye)));
 				
 				//Erstellung einer Facette
 				glBegin(GL_POLYGON);
+					glNormal3f(normal.x, normal.y, normal.z);
 					glVertex3f(xEye(u_iEye,v_jEye),			yEye(u_iEye,v_jEye), 		zEye(u_iEye, v_jEye));
 					glVertex3f(xEye(u_i_1Eye,v_jEye),		yEye(u_i_1Eye,v_jEye), 		zEye(u_i_1Eye, v_jEye));
 					glVertex3f(xEye(u_iEye,v_j_1Eye),		yEye(u_iEye,v_j_1Eye), 		zEye(u_iEye, v_j_1Eye));

@@ -3,6 +3,10 @@ package character;
 //Imports
 import static org.lwjgl.opengl.GL11.*;
 
+import org.joml.Vector3f;
+
+import engine.Utils;
+
 public class Leg {
 	
 	
@@ -22,13 +26,14 @@ public class Leg {
 	float u_iLeg , u_i_1Leg , v_jLeg , v_j_1Leg;							//Eckpunkte einer Facette
 	float 	uaLeg = -intervalLeg, ueLeg = (float) intervalLeg ,				//Anfang und Ende des u-Bereichs
 			vaLeg = 0, veLeg = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
 	float rLeg = 1;															//Radius 
 	
 	private void doLeg()
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		for(int i = 0; i<mLeg; i++){
 			for(int j = 0; j<nLeg; j++){
 			
@@ -38,8 +43,14 @@ public class Leg {
 			v_jLeg 		= vaLeg + j * deltaVLeg;
 			v_j_1Leg 	= v_jLeg + deltaVLeg;
 			
+			Vector3f normal = Utils.normalVector(
+					new Vector3f(xLeg(u_iLeg,v_jLeg), yLeg(u_iLeg,v_jLeg), zLeg(u_iLeg, v_jLeg)),
+					new Vector3f(xLeg(u_i_1Leg,v_jLeg), yLeg(u_i_1Leg,v_jLeg), zLeg(u_i_1Leg, v_jLeg)),
+					new Vector3f(xLeg(u_iLeg,v_j_1Leg), yLeg(u_iLeg,v_j_1Leg), zLeg(u_iLeg, v_j_1Leg)));
+			
 			//Erstellung einer Facette
-			glBegin(GL_TRIANGLE_STRIP);	
+			glBegin(GL_TRIANGLE_STRIP);
+				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xLeg(u_iLeg,v_jLeg),				yLeg(u_iLeg,v_jLeg), 			zLeg(u_iLeg, v_jLeg));
 				glVertex3f(xLeg(u_i_1Leg,v_jLeg),			yLeg(u_i_1Leg,v_jLeg), 			zLeg(u_i_1Leg, v_jLeg));
 				glVertex3f(xLeg(u_iLeg,v_j_1Leg),			yLeg(u_iLeg,v_j_1Leg), 			zLeg(u_iLeg, v_j_1Leg));
@@ -72,15 +83,14 @@ public class Leg {
 	float u_iFeet , u_i_1Feet , v_jFeet , v_j_1Feet;								//Eckpunkte einer Facette
 	float 	uaFeet = (float) 0, ueFeet = (float)(Math.PI),								//Anfang und Ende des u-Bereichs
 			vaFeet = 0, veFeet = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
 	float rFeet = zLeg(ueLeg, vaLeg);												//Radius 
 	
 	
 	private void doFeet()
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glLineWidth(1);
 
 		for(int i = 0; i<mFeet; i++){
 			for(int j = 0; j<nFeet; j++){
@@ -91,8 +101,14 @@ public class Leg {
 			v_jFeet 	= vaFeet + j * deltaVFeet;
 			v_j_1Feet 	= v_jFeet + deltaVFeet;
 			
+			Vector3f normal = Utils.normalVector(
+					new Vector3f(xFeet(u_iFeet,v_jFeet), yFeet(u_iFeet,v_jFeet), zFeet(u_iFeet, v_jFeet)),
+					new Vector3f(xFeet(u_i_1Feet,v_jFeet), yFeet(u_i_1Feet,v_jFeet), zFeet(u_i_1Feet, v_jFeet)),
+					new Vector3f(xFeet(u_iFeet,v_j_1Feet), yFeet(u_iFeet,v_j_1Feet), zFeet(u_iFeet, v_j_1Feet)));
+			
 			//Erstellung einer Facette
 			glBegin(GL_TRIANGLE_STRIP);
+				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xFeet(u_iFeet,v_jFeet),			yFeet(u_iFeet,v_jFeet), 			zFeet(u_iFeet, v_jFeet));
 				glVertex3f(xFeet(u_i_1Feet,v_jFeet),			yFeet(u_i_1Feet,v_jFeet), 		zFeet(u_i_1Feet, v_jFeet));
 				glVertex3f(xFeet(u_iFeet,v_j_1Feet),			yFeet(u_iFeet,v_j_1Feet), 		zFeet(u_iFeet, v_j_1Feet));

@@ -138,7 +138,6 @@ public class Terrain {
 							getHeight(x, z+1, HeightMapMesh) + MAX_HEIGHT / 2);
 					
 					glBegin(GL_LINES);
-						glColor3f(0, 0, 1.f);
 						glVertex3f(drawnVecOne.x, drawnVecOne.y, drawnVecOne.z);
 						glVertex3f(drawnVecOne.x - normalOne.x, 
 								drawnVecOne.y - normalOne.y, 
@@ -158,7 +157,6 @@ public class Terrain {
 				Vector3f normalGround = Utils.calculateNormalVector(firstPoint, .1f, .1f);
 				
 				glBegin(GL_LINES);
-					glColor3f(0, 0, 1.f);
 					glVertex3f(firstPoint.x, firstPoint.y, firstPoint.z);
 					glVertex3f(firstPoint.x + normalGround.x, 
 							firstPoint.y + normalGround.y, 

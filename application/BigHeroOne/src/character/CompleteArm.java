@@ -10,10 +10,14 @@ public class CompleteArm {
 	public void drawCompleteArm(){
 		
 		glPushMatrix();
+			glTranslatef(0, arm.intervalArm, 0);
+			glRotatef(-65, 0,0,1);
+			glTranslatef(0, -arm.intervalArm, 0);
+			glRotatef(90, 0,1,0);
 			arm.drawArm();
 			glTranslatef(-2*finger.rFinger, -(finger.intervalFinger/2+arm.intervalArm-arm.rHand), 0);
 			finger.drawFinger();
-		
+		glPopMatrix();
 	}
 	
 	public float getIntervalArm(){

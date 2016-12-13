@@ -56,7 +56,7 @@ public class Scene {
 	 * renders our models and defines the cameraposition
 	 */
 	public void renderLoop() {
-		player.move();
+		player.move(calculateVectorDirectionBetweenEyeAndCenter());
 		camera.move();
 		m.setLookAt(camera.getPosition(), player.getPosition(),
 				calculateUpVectorOfCameraPosition(secondOrthogonalVector));
