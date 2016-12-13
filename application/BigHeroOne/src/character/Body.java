@@ -29,8 +29,8 @@ public class Body {
 	float u_iLowerBody , u_i_1LowerBody , v_jLowerBody , v_j_1LowerBody;								//Eckpunkte einer Facette
 	float 	uaLowerBody = 0, ueLowerBody = (float) (2*Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaLowerBody = (float)(-Math.PI/2), veLowerBody = (float)0;									//Anfang und Ende des v-Bereichs
-	float deltaULowerBody = (float)(ueLowerBody-uaLowerBody)/mLowerBody;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaULowerBody = (float)(ueLowerBody-uaLowerBody)/mLowerBody;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rLowerBody = 5.f;																//Radius 
 	
 	
@@ -88,8 +88,8 @@ public class Body {
 	float u_iUpperBody , u_i_1UpperBody , v_jUpperBody , v_j_1UpperBody;								//Eckpunkte einer Facette
 	float 	uaUpperBody = 0, ueUpperBody = (float) (2*Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaUpperBody = (float)0, veUpperBody = (float)(Math.PI/2);									//Anfang und Ende des v-Bereichs
-	float deltaUUpperBody = (float)(ueUpperBody-uaUpperBody)/mUpperBody;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVUpperBody = (float)(veUpperBody-vaUpperBody)/nUpperBody;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUUpperBody = (float)(ueUpperBody-uaUpperBody)/mUpperBody;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVUpperBody = (float)(veUpperBody-vaUpperBody)/nUpperBody;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rUpperBody = 4.f;												//Radius 
 	
 	
@@ -145,8 +145,8 @@ public class Body {
 	float u_iMiddleBody , u_i_1MiddleBody , v_jMiddleBody , v_j_1MiddleBody;							//Eckpunkte einer Facette
 	float 	uaMiddleBody = -intervalMiddleBody, ueMiddleBody = (float) intervalMiddleBody ,				//Anfang und Ende des u-Bereichs
 			vaMiddleBody = 0, veMiddleBody = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaUMiddleBody = (float)(ueMiddleBody-uaMiddleBody)/mMiddleBody;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVMiddleBody = (float)(veMiddleBody-vaMiddleBody)/nMiddleBody;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUMiddleBody = (float)(ueMiddleBody-uaMiddleBody)/mMiddleBody;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVMiddleBody = (float)(veMiddleBody-vaMiddleBody)/nMiddleBody;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rMiddleBody = 2.5f;															//Radius 
 
 	private void doMiddleBody()
@@ -165,7 +165,7 @@ public class Body {
 			Vector3f normal = Utils.normalVector(
 					new Vector3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody), yMiddleBody(u_iMiddleBody,v_jMiddleBody), zMiddleBody(u_iMiddleBody, v_jMiddleBody)),
 					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
-					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody)));
+					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody))).mul(-1);
 					
 			//Erstellung einer Facette
 			glBegin(GL_TRIANGLE_STRIP);	

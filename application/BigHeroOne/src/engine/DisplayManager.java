@@ -90,7 +90,7 @@ public class DisplayManager {
 
 
         // Create the window
-        window = glfwCreateWindow(WIDTH, HEIGHT, "Beispiel 2", NULL, NULL);
+        window = glfwCreateWindow(WIDTH, HEIGHT, "BIG HERO ONE", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
