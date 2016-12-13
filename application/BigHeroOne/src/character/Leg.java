@@ -22,14 +22,13 @@ public class Leg {
 	float u_iLeg , u_i_1Leg , v_jLeg , v_j_1Leg;							//Eckpunkte einer Facette
 	float 	uaLeg = -intervalLeg, ueLeg = (float) intervalLeg ,				//Anfang und Ende des u-Bereichs
 			vaLeg = 0, veLeg = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rLeg = 1;															//Radius 
 	
 	private void doLeg()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glColor3f(1,1,1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		for(int i = 0; i<mLeg; i++){
 			for(int j = 0; j<nLeg; j++){
 			
@@ -73,16 +72,15 @@ public class Leg {
 	float u_iFeet , u_i_1Feet , v_jFeet , v_j_1Feet;								//Eckpunkte einer Facette
 	float 	uaFeet = (float) 0, ueFeet = (float)(Math.PI),								//Anfang und Ende des u-Bereichs
 			vaFeet = 0, veFeet = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rFeet = zLeg(ueLeg, vaLeg);												//Radius 
 	
 	
 	private void doFeet()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glLineWidth(1);
-		glColor3f(1,0,1);
 
 		for(int i = 0; i<mFeet; i++){
 			for(int j = 0; j<nFeet; j++){

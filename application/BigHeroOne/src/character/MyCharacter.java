@@ -22,7 +22,7 @@ public class MyCharacter
 	
 	public void draw(float winkel)
 	{	
-		glScalef(.2f, .2f, .2f);
+//		glScalef(.2f, .2f, .2f);
 		glPushMatrix();
 			glTranslatef(0,body.getHeight() + leftLeg.getHeight(),0);
 			head.drawHead();

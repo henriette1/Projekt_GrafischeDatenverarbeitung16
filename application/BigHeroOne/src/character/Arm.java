@@ -23,14 +23,13 @@ public class Arm{
 		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;							//Eckpunkte einer Facette
 		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,				//Anfang und Ende des u-Bereichs
 				vaUpperArm = 0.f, veUpperArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float rArm = 0.75f;																//Radius 
 	
 	private void doUpperArm()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glColor3f(1,1,1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		for(int i = 0; i<mArm; i++){
 			for(int j = 0; j<nArm; j++){
 			
@@ -55,13 +54,12 @@ public class Arm{
 	float u_iForeArm , u_i_1ForeArm , v_jForeArm , v_j_1ForeArm;							//Eckpunkte einer Facette
 	float 	uaForeArm = -intervalArm, ueForeArm = 0.f,				//Anfang und Ende des u-Bereichs
 			vaForeArm = 0, veForeArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	
 	private void doForeArm()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glColor3f(1,1,1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		for(int i = 0; i<mArm; i++){
 			for(int j = 0; j<nArm; j++){
 			
@@ -110,16 +108,15 @@ public class Arm{
 	float u_iHand , u_i_1Hand , v_jHand , v_j_1Hand;								//Eckpunkte einer Facette
 	float 	uaHand = 0, ueHand = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaHand = 0, veHand = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUHand = (float)(ueHand-uaHand)/mHand;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVHand = (float)(veHand-vaHand)/nHand;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUHand = (float)(ueHand-uaHand)/mHand;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVHand = (float)(veHand-vaHand)/nHand;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rHand = zArm(ueUpperArm, vaUpperArm);												//Radius 
 	
 	
 	private void doHand()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glLineWidth(1);
-		glColor3f(1,0,1);
 
 		for(int i = 0; i<mHand; i++){
 			for(int j = 0; j<nHand; j++){
@@ -163,16 +160,15 @@ public class Arm{
 	float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;								//Eckpunkte einer Facette
 	float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaJoint = 0, veJoint = (float) (2*Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rJoint = rArm;														//Radius 
 	
 	
 	private void doJoint()
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glLineWidth(1);
-		glColor3f(1,0,1);
 
 		for(int i = 0; i<mJoint; i++){
 			for(int j = 0; j<nJoint; j++){

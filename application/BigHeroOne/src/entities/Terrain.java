@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Terrain {
 	
-	private static final float MAX_HEIGHT = 30;
+	private static final float MAX_HEIGHT = 40;
 	private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
 	private static final float SIZE = 100;
 	
@@ -37,6 +37,7 @@ public class Terrain {
 	public void generateCave() {
 		glPushMatrix();
 			Materials.materialCave();
+			// call list containing the cave coordinates
 			glCallList(this.index);
 		glPopMatrix();
 //		glPushMatrix();
@@ -46,7 +47,8 @@ public class Terrain {
 	
 	public void generateGround() {
 		glPushMatrix();
-//			Materials.materialGround();
+			Materials.materialGround();
+			//call list containing the ground
 			glCallList(this.index + 1);
 		glPopMatrix();
 //		glPopMatrix();
@@ -72,7 +74,6 @@ public class Terrain {
 		glNewList(this.index, GL_COMPILE);
 			for(int z = 0; z < (HEIGHT-1); z++) {
 				glBegin(GL_TRIANGLE_STRIP);
-				glColor3f(1.f, 1.f, 1.f);
 				for(int x = 0; x < WIDTH; x++) {
 					
 					heightMapCoords[x][z] = getHeight(x, z, HeightMapMesh);
@@ -101,9 +102,8 @@ public class Terrain {
 	
 	private void compileGroundList() {
 		glNewList(this.index + 1, GL_COMPILE);
-			for(int z = 0; z < HEIGHT-1; z++) {
+			for(int z = 0; z < HEIGHT; z++) {
 				glBegin(GL_TRIANGLE_STRIP);
-//					glColor3f(1.f, 1.f, 1.f);
 				for(int x = 0; x < WIDTH; x++) {
 					Vector3f firstPoint= new Vector3f(x, 0.1f, z);
 					

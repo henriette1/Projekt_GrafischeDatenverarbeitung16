@@ -13,11 +13,11 @@ public class Camera {
 	public static float dyPitch;
 	public static float dyZoom;
 	private Vector2f mousePosStart = new Vector2f(0,0);
-	private float distanceFromPlayer = 4;
+	private float distanceFromPlayer = 20;
 	private float angleAroundPlayer = 0;
 
 	private Vector3f position = new Vector3f(0, 0, 0);
-	private float pitch =30; // view angle
+	private float pitch =50; // view angle
 	private float yaw = 0;
 	private float roll;
 

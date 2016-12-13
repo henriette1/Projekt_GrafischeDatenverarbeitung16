@@ -23,6 +23,7 @@ public class DisplayManager {
     private long window;
 
     private Scene scene = new Scene();
+    private Menu menu = new Menu();
     private int WIDTH = 600, HEIGHT = 600;
     
     private static final int FPS_CAP = 120;
@@ -31,15 +32,18 @@ public class DisplayManager {
     private static long lastFrameTime;
     private static float delta;
 
+    private static State state = State.MAIN_MENU;
+    private static State lastState = State.GAME;
 	private static boolean mouseLeft = false;
 	private static boolean mouseRight = false;
 	private Model model = new Model();
-	private Player player = new Player(model, new Vector3f(10,0,500), 0, 0, 0, .5f);
+	private Player player = new Player(model, new Vector3f(0,0,0), 0, 180, 0, 1f);
 	private Camera camera = new Camera(player);
 
 	protected boolean inWindow = false;
 
 	private Terrain terrain;
+
 
     public void run()
     {
@@ -58,11 +62,15 @@ public class DisplayManager {
             // Once this is called, you must again call glfwInit successfully before you will be able to use 
             // most GLFW functions.
             glfwTerminate();
-//            scene.getTerrain().deleteLists();
+            scene.getTerrain().deleteLists();
 
             // Free the error callback
             glfwSetErrorCallback(null).free();
         }
+    }
+    
+    public enum State {
+    	GAME, MAIN_MENU;
     }
 
     private void init()
@@ -92,34 +100,58 @@ public class DisplayManager {
                 glfwSetWindowShouldClose(window, true); // We will detect this in our rendering loop
             
             player.checkInputs(key, action);
+            
+            if ( key == GLFW_KEY_SPACE && action == GLFW_RELEASE ) {
+        		if(state == State.MAIN_MENU) {
+        			state = State.GAME;
+        			lastState = State.MAIN_MENU;
+        			
+        		}
+        		else if(state == State.GAME) {
+        			scene.disableLightning();
+        			state = State.MAIN_MENU;
+        			lastState = State.GAME;
+        		}
+            }
         });
         // Setup a scroll callback
         glfwSetScrollCallback(window, GLFWScrollCallback.create((window, xoffset, yoffset) -> {
-            int temp = (int) yoffset;
-        	Camera.dyZoom = (float) temp;
+            if(state == State.GAME){
+        		int temp = (int) yoffset;
+	        	Camera.dyZoom = (float) temp;
+            } else if(state == State.MAIN_MENU) {
+            	
+            }
+            
         }));
         
         // Setup a mouse callback 
         glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
-        		setMouseLeft(true);
-        	}
-        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_RELEASE) {
-        		setMouseLeft(false);
-        	}
-        	if (button== GLFW_MOUSE_BUTTON_2 && action == GLFW_PRESS) {
-        		setMouseRight(true);
-        	}
-        	if (button== GLFW_MOUSE_BUTTON_2 && action == GLFW_RELEASE) {
-        		setMouseRight(false);
-        	}
+        	if(state == State.GAME){
+	        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
+	        		setMouseLeft(true);
+	        	}
+	        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_RELEASE) {
+	        		setMouseLeft(false);
+	        	}
+	        	if (button== GLFW_MOUSE_BUTTON_2 && action == GLFW_PRESS) {
+	        		setMouseRight(true);
+	        	}
+	        	if (button== GLFW_MOUSE_BUTTON_2 && action == GLFW_RELEASE) {
+	        		setMouseRight(false);
+	        	} 
+        	} else if(state == State.MAIN_MENU) {
+            	
+            }
         });
         
         glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
-        	
-        		Camera.dxRotate = (float) xpos;
-        	
+    		if(state == State.GAME) {
+    			Camera.dxRotate = (float) xpos;
         		Camera.dyPitch = (float) ypos;
+    		} else if(state == State.MAIN_MENU) {
+            	
+            }
     	});
         
         //create Callback to decide if cursor is in or outside the window
@@ -131,10 +163,9 @@ public class DisplayManager {
 			}
 		});
 		
-		
-        scene.setPlayer(player);  
-        camera.setPlayer(player);
-        scene.setCamera(camera);
+	        scene.setPlayer(player);  
+	        camera.setPlayer(player);
+	        scene.setCamera(camera);
 
         // Get the resolution of the primary monitor
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -168,8 +199,15 @@ public class DisplayManager {
         // LWJGL detects the context that is current in the current thread,
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
-    	
-        scene.initGLState();
+    	switch (state) {
+		case GAME:
+			scene.initGLState();			
+			break;
+
+		case MAIN_MENU:
+			menu.initMenu();
+			break;
+		}
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -180,7 +218,19 @@ public class DisplayManager {
             
             glEnable(GL_DEPTH_TEST);
             
-            scene.renderLoop();
+            switch(state) {
+            case GAME:
+            	if(lastState == State.MAIN_MENU)
+            		scene.initGLState();
+            	scene.renderLoop();
+            	break;
+            	
+            case MAIN_MENU:
+            	if(lastState == State.GAME)
+            		menu.initMenu();
+            	menu.renderMenu();
+            	break;
+            }
 
             // Swap the color buffers
             glfwSwapBuffers(window);
