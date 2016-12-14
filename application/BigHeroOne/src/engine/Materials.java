@@ -51,5 +51,17 @@ public class Materials {
 		
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
 	}
+	
+	public static void materialEmerald() {
+		float mat_ambient[] = {0.02f, 0.17f, 0.02f, .5f};
+		float mat_diffuse[] = {.08f, .61f, .08f, .5f};
+		float mat_specluar[] = {.63f, .73f, .63f, .5f};
+		float shininess = 76.8f;
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specluar);
+		
+		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+	}
 
 }

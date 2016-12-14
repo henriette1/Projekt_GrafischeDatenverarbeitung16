@@ -15,6 +15,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import entities.Camera;
 import entities.Terrain;
+import sun.java2d.pipe.TextRenderer;
 import entities.Model;
 import entities.Player;
 
@@ -43,6 +44,10 @@ public class DisplayManager {
 	protected boolean inWindow = false;
 
 	private Terrain terrain;
+
+	private double currentYpos;
+
+	private double currentXpos;
 
 
     public void run()
@@ -105,7 +110,7 @@ public class DisplayManager {
         		if(state == State.MAIN_MENU) {
         			state = State.GAME;
         			lastState = State.MAIN_MENU;
-        			
+        			menu.turnOff();        			
         		}
         		else if(state == State.GAME) {
         			scene.disableLightning();
@@ -141,19 +146,26 @@ public class DisplayManager {
 	        		setMouseRight(false);
 	        	} 
         	} else if(state == State.MAIN_MENU) {
-            	
-            }
+        		if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
+        			if((Math.pow(currentXpos-WIDTH/2., 2) + Math.pow(currentYpos-WIDTH/2., 2)) <= Math.pow(WIDTH/3.9, 2)){
+	        				state = State.GAME;
+	        				lastState = State.MAIN_MENU;
+	        				menu.turnOff();
+        				}   		
+        		}
+        	}
         });
-        
+    
         glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
     		if(state == State.GAME) {
     			Camera.dxRotate = (float) xpos;
         		Camera.dyPitch = (float) ypos;
     		} else if(state == State.MAIN_MENU) {
-            	
+            	currentXpos = xpos;
+            	currentYpos = ypos;
             }
     	});
-        
+
         //create Callback to decide if cursor is in or outside the window
 		glfwSetCursorEnterCallback(window, new GLFWCursorEnterCallback() {
 			

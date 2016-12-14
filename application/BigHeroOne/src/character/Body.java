@@ -165,7 +165,7 @@ public class Body {
 			Vector3f normal = Utils.normalVector(
 					new Vector3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody), yMiddleBody(u_iMiddleBody,v_jMiddleBody), zMiddleBody(u_iMiddleBody, v_jMiddleBody)),
 					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
-					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody))).mul(-1);
+					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody))).mul(1);
 					
 			//Erstellung einer Facette
 			glBegin(GL_TRIANGLE_STRIP);	

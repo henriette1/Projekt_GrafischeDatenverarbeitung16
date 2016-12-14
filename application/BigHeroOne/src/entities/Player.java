@@ -96,7 +96,7 @@ public class Player extends Entity {
 		float[][] helpMap = new float[513][513];
 	 	for(int j= 1; j<helpMap.length-1; j++){
 	 		for(int i=1; i<helpMap[1].length-1; i++){
-	 			if(HEIGHT_MAP[i][j] > -15 && HEIGHT_MAP[i][j] < -10){
+	 			if(HEIGHT_MAP[i][j] > -15 && HEIGHT_MAP[i][j] < -4){
 	 				helpMap[i][j]=1;
 	 			}
 	 		}

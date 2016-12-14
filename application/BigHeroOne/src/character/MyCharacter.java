@@ -60,5 +60,9 @@ public class MyCharacter
 		glPopMatrix();
 	}
 	
+	public float getSize(){
+		return rightLeg.getHeight() + body.getHeight() + head.bHead;
+	}
+	
 	
 }
