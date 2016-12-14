@@ -96,8 +96,7 @@ public class Scene {
 
 		spotLight.turnLightOn();
 		pointLight.turnLightOn();
-	}
-	
+	}	
 
 	private void updateSpotLight() {
 		float light0_position[] = { player.getPosition().x, 16.0f, player.getPosition().z, 1.0f }; // x,y,z,1

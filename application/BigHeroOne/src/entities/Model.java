@@ -16,7 +16,7 @@ private MyCharacter bigHeroSix = new MyCharacter();
 	 */
 	public void draw(float winkel) {
 		glPushMatrix();
-			Materials.materialBigHeroOne();
+			Materials.materialChrom();
 			bigHeroSix.draw(winkel);
 		glPopMatrix();
 	}

@@ -30,9 +30,21 @@ public class Materials {
 	
 	public static void materialBigHeroOne() {
 		float mat_ambient[] = {0.05f, 0.05f, 0.05f, 1.f};
-		float mat_diffuse[] = {.5f, .5f, 5.f, 1.f};
+		float mat_diffuse[] = {.5f, .5f, .5f, 1.f};
 		float mat_specluar[] = {.7f, .7f, .7f, 1.f};
 		float shininess = 50.078125f;
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specluar);
+		
+		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+	}
+	
+	public static void materialChrom() {
+		float mat_ambient[] = {0.25f, 0.25f, 0.25f, 1.f};
+		float mat_diffuse[] = {.4f, .4f, .4f, 1.f};
+		float mat_specluar[] = {.77f, .77f, .77f, 1.f};
+		float shininess = 76.8f;
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specluar);

@@ -188,10 +188,8 @@ public class Head {
 					glVertex3f(xEye(u_i_1Eye,v_j_1Eye),		yEye(u_i_1Eye,v_j_1Eye),	zEye(u_i_1Eye, v_j_1Eye));
 				glEnd();
 				
-//				glColor3f(0.6f,0.0f,0.0f);
 //				glBegin(GL_POLYGON);
 //					for(int i = 0; i < mEye; i++){
-////						glColor3f((float)Math.random(), (float)Math.random(), (float)Math.random());
 //						glVertex2f((float)(sEye*Math.cos(i*2*Math.PI/mEye)), (float)(sEye*Math.sin(i*2*Math.PI/mEye)));
 //					}
 //				glEnd();
