@@ -24,6 +24,7 @@ public class MyCharacter
 	{	
 		glPushMatrix();
 			glTranslatef(0,body.getHeight() + leftLeg.getHeight(),0);
+			glRotatef(180, 0, 1, 0);
 			head.drawHead();
 		glPopMatrix();
 		glPushMatrix();

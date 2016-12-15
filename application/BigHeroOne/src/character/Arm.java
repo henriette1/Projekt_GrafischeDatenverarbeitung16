@@ -17,7 +17,7 @@ public class Arm{
 				doUpperJoint();
 			glPopMatrix();
 			doUpperArm();			
-			doJoint();
+//			doJoint();
 			doForeArm();
 			glTranslatef(0, -intervalArm, 0);
 			doHand();
@@ -25,14 +25,14 @@ public class Arm{
 	}
 	
 	// private Variablen
-		int mArm = 15;															//u-Schritte
-		int nArm = 15;															//v-Schritte
+		int mArm = 30;															//u-Schritte
+		int nArm = 30;															//v-Schritte
 		float intervalArm = 3;													//u-Abschnitt
 		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;							//Eckpunkte einer Facette
 		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,				//Anfang und Ende des u-Bereichs
 				vaUpperArm = 0.f, veUpperArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float rArm = 0.75f;																//Radius 
 	
 	private void doUpperArm()
@@ -68,8 +68,8 @@ public class Arm{
 	float u_iForeArm , u_i_1ForeArm , v_jForeArm , v_j_1ForeArm;							//Eckpunkte einer Facette
 	float 	uaForeArm = -intervalArm, ueForeArm = 0.f,				//Anfang und Ende des u-Bereichs
 			vaForeArm = 0, veForeArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	
 	private void doForeArm()
 	{
@@ -124,13 +124,13 @@ public class Arm{
 	}
 	
 	
-	int mHand = 15;																	//u-Schritte
-	int nHand = 15;																	//v-Schritte
+	int mHand = 30;																	//u-Schritte
+	int nHand = 30;																	//v-Schritte
 	float u_iHand , u_i_1Hand , v_jHand , v_j_1Hand;								//Eckpunkte einer Facette
 	float 	uaHand = 0, ueHand = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaHand = 0, veHand = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUHand = (float)(ueHand-uaHand)/mHand;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVHand = (float)(veHand-vaHand)/nHand;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUHand = (float)(ueHand-uaHand)/mHand;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVHand = (float)(veHand-vaHand)/nHand;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rHand = zArm(ueUpperArm, vaUpperArm);												//Radius 
 	
 	
@@ -181,13 +181,13 @@ public class Arm{
 		return (float)(rHand*Math.cos(u));
 	}
 	
-	int mJoint = 15;																	//u-Schritte
-	int nJoint = 15;																	//v-Schritte
+	int mJoint = 30;																	//u-Schritte
+	int nJoint = 30;																	//v-Schritte
 	float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;								//Eckpunkte einer Facette
 	float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 			vaJoint = 0, veJoint = (float) (2*Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rJoint = rArm;														//Radius 
 	
 	

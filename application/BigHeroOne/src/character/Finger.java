@@ -41,14 +41,14 @@ public class Finger {
 	}
 	
 	// private Variablen
-			int mFinger = 5;															//u-Schritte
-			int nFinger = 5;															//v-Schritte
+			int mFinger = 10;															//u-Schritte
+			int nFinger = 10;															//v-Schritte
 			float intervalFinger = 0.25f;													//u-Abschnitt
 			float u_iUpperFinger , u_i_1UpperFinger , v_jUpperFinger , v_j_1UpperFinger;							//Eckpunkte einer Facette
 			float 	uaUpperFinger = 0.f, ueUpperFinger = (float) intervalFinger ,				//Anfang und Ende des u-Bereichs
 					vaUpperFinger = 0.f, veUpperFinger = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-			float deltaUUpperFinger = (float)(ueUpperFinger-uaUpperFinger)/mFinger;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-			float deltaVUpperFinger = (float)(veUpperFinger-vaUpperFinger)/nFinger;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+			float deltaUUpperFinger = (float)(ueUpperFinger-uaUpperFinger)/mFinger;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+			float deltaVUpperFinger = (float)(veUpperFinger-vaUpperFinger)/nFinger;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 			float rFinger = 0.125f;																//Radius 
 		
 		private void doUpperFinger()
@@ -85,8 +85,8 @@ public class Finger {
 		float u_iLowerFinger , u_i_1LowerFinger , v_jLowerFinger , v_j_1LowerFinger;							//Eckpunkte einer Facette
 		float 	uaLowerFinger = -intervalFinger, ueLowerFinger = 0.f,				//Anfang und Ende des u-Bereichs
 				vaLowerFinger = 0, veLowerFinger = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-		float deltaULowerFinger = (float)(ueLowerFinger-uaLowerFinger)/mFinger;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVLowerFinger = (float)(veLowerFinger-vaLowerFinger)/nFinger;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaULowerFinger = (float)(ueLowerFinger-uaLowerFinger)/mFinger;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVLowerFinger = (float)(veLowerFinger-vaLowerFinger)/nFinger;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 
 		
 		private void doLowerFinger()
@@ -137,13 +137,13 @@ public class Finger {
 		}
 		
 		
-		int mPeak = 5;																	//u-Schritte
-		int nPeak = 5;																	//v-Schritte
+		int mPeak = 10;																	//u-Schritte
+		int nPeak = 10;																	//v-Schritte
 		float u_iPeak , u_i_1Peak , v_jPeak , v_j_1Peak;								//Eckpunkte einer Facette
 		float 	uaPeak = 0, uePeak = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 				vaPeak = 0, vePeak = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-		float deltaUPeak = (float)(uePeak-uaPeak)/mPeak;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVPeak = (float)(vePeak-vaPeak)/nPeak;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUPeak = (float)(uePeak-uaPeak)/mPeak;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVPeak = (float)(vePeak-vaPeak)/nPeak;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float rPeak = zFinger(ueUpperFinger, vaUpperFinger);												//Radius 
 		
 		
@@ -194,13 +194,13 @@ public class Finger {
 			return (float)(rPeak*Math.cos(u));
 		}
 		
-		int mJoint = 5;																	//u-Schritte
-		int nJoint = 5;																	//v-Schritte
+		int mJoint = 10;																	//u-Schritte
+		int nJoint = 10;																	//v-Schritte
 		float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;								//Eckpunkte einer Facette
 		float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
 				vaJoint = 0, veJoint = (float) (2*Math.PI);									//Anfang und Ende des v-Bereichs
-		float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float rJoint = rFinger;														//Radius 
 		
 		

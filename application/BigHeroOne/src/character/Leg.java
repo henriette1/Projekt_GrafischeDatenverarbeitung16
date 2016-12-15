@@ -20,14 +20,14 @@ public class Leg {
 	}
 	
 	// private Variablen
-	int mLeg = 15;															//u-Schritte
-	int nLeg = 15;															//v-Schritte
+	int mLeg = 30;															//u-Schritte
+	int nLeg = 30;															//v-Schritte
 	float intervalLeg = 2;													//u-Abschnitt
 	float u_iLeg , u_i_1Leg , v_jLeg , v_j_1Leg;							//Eckpunkte einer Facette
 	float 	uaLeg = -intervalLeg, ueLeg = (float) intervalLeg ,				//Anfang und Ende des u-Bereichs
 			vaLeg = 0, veLeg = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rLeg = 1;															//Radius 
 	
 	private void doLeg()
@@ -78,13 +78,13 @@ public class Leg {
 	}
 	
 	
-	int mFeet = 15;																	//u-Schritte
-	int nFeet = 15;																	//v-Schritte
+	int mFeet = 30;																	//u-Schritte
+	int nFeet = 30;																	//v-Schritte
 	float u_iFeet , u_i_1Feet , v_jFeet , v_j_1Feet;								//Eckpunkte einer Facette
 	float 	uaFeet = (float) 0, ueFeet = (float)(Math.PI),								//Anfang und Ende des u-Bereichs
 			vaFeet = 0, veFeet = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 	float rFeet = zLeg(ueLeg, vaLeg);												//Radius 
 	
 	

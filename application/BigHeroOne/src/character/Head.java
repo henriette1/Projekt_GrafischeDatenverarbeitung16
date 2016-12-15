@@ -18,8 +18,8 @@ public class Head {
 			float u_iHead , u_i_1Head , v_jHead , v_j_1Head;									//Eckpunkte einer Facette
 			float 	uaHead = (float) 0, ueHead = (float)(2*Math.PI),					//Anfang und Ende des u-Bereichs
 					vaHead = (float) -(Math.PI/2.), veHead = (float)(Math.PI/2.);		//Anfang und Ende des v-Bereichs
-			float deltaUHead = (float)(ueHead-uaHead)/mHead;									//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-			float deltaVHead = (float)(veHead-vaHead)/nHead;									//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+			float deltaUHead = (float)(ueHead-uaHead)/mHead;									//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+			float deltaVHead = (float)(veHead-vaHead)/nHead;									//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 
 		public void drawHead()
 		{	
@@ -93,8 +93,8 @@ public class Head {
 		float u_iConnection , u_i_1Connection , v_jConnection , v_j_1Connection;							//Eckpunkte einer Facette
 		float 	uaConnection = (float) (3*Math.PI/8), ueConnection = (float) (5*Math.PI/8) ,				//Anfang und Ende des u-Bereichs
 				vaConnection =  (float) (-Math.PI/100)+0.25f, veConnection = (float)(Math.PI/100)+0.25f;							//Anfang und Ende des v-Bereichs
-		float deltaUConnection = (float)(ueConnection-uaConnection)/mConnection;							//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVConnection = (float)(veConnection-vaConnection)/nConnection;							//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUConnection = (float)(ueConnection-uaConnection)/mConnection;							//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVConnection = (float)(veConnection-vaConnection)/nConnection;							//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 				
 		private void doConnection()
 		{
@@ -142,13 +142,13 @@ public class Head {
 			return (float)(cHead* Math.sin(u)*Math.cos(v));
 		}
 		
-		int mEye = 15;														//u-Schritte
-		int nEye = 15;														//v-Schritte
+		int mEye = 30;														//u-Schritte
+		int nEye = 30;														//v-Schritte
 		float u_iEye , u_i_1Eye , v_jEye , v_j_1Eye;						//Eckpunkte einer Facette
 		float 	uaEye = (float) (0), ueEye = (float) (2*Math.PI) ,						//Anfang und Ende des u-Bereichs
 				vaEye = (float)(0), veEye = (float)1;						//Anfang und Ende des v-Bereichs
-		float deltaUEye = (float)(ueEye-uaEye)/mEye;						//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVEye = (float)(veEye-vaEye)/nEye;						//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUEye = (float)(ueEye-uaEye)/mEye;						//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVEye = (float)(veEye-vaEye)/nEye;						//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float rEye = 0.001f;													//Radius 
 		float sEye = 0.15f;
 		float hEye = (float)(Math.sqrt(xConnection(ueConnection, veConnection)*xConnection(ueConnection, veConnection)

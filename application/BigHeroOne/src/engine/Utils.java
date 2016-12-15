@@ -32,6 +32,9 @@ public class Utils {
 		return normal;
 	}
 	
+	/*
+	 * calculates the normals for special parametrized objects.
+	 */
 	public static Vector3f normalVector(Vector3f a, Vector3f b, Vector3f c){
 		
 		Vector3f firstVec = Utils.calculateDifferenceVector(a, b);

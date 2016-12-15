@@ -21,8 +21,8 @@ public class Body {
 		glPopMatrix();
 	}
 
-	int mLowerBody = 15;																	//u-Schritte
-	int nLowerBody = 15;																//v-Schritte
+	int mLowerBody = 30;																	//u-Schritte
+	int nLowerBody = 30;																//v-Schritte
 	float aLower = 3.f;
 	float bLower = 2.f;
 	float cLower = 3.f;
@@ -80,8 +80,8 @@ public class Body {
 	}
 		
 	
-	int mUpperBody = 15;																	//u-Schritte
-	int nUpperBody = 15;																//v-Schritte
+	int mUpperBody = 30;																	//u-Schritte
+	int nUpperBody = 30;																//v-Schritte
 	float aUpper = 2.f;
 	float bUpper = 1.f;
 	float cUpper = 2.f;
@@ -162,16 +162,21 @@ public class Body {
 			v_jMiddleBody 		= vaMiddleBody + j * deltaVMiddleBody;
 			v_j_1MiddleBody 	= v_jMiddleBody + deltaVMiddleBody;
 			
-			Vector3f normal = Utils.normalVector(
+			Vector3f normal1 = Utils.normalVector(
 					new Vector3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody), yMiddleBody(u_iMiddleBody,v_jMiddleBody), zMiddleBody(u_iMiddleBody, v_jMiddleBody)),
 					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
 					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody))).mul(1);
-					
+			Vector3f normal2 = Utils.normalVector(
+					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody)),
+					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
+					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody), yMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody), zMiddleBody(u_i_1MiddleBody, v_j_1MiddleBody)));
+			
 			//Erstellung einer Facette
 			glBegin(GL_TRIANGLE_STRIP);	
-				glNormal3f(normal.x, normal.y, normal.z);
+				glNormal3f(normal1.x, normal1.y, normal1.z);
 				glVertex3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody),				yMiddleBody(u_iMiddleBody,v_jMiddleBody), 			zMiddleBody(u_iMiddleBody, v_jMiddleBody));
 				glVertex3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody),			yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), 			zMiddleBody(u_i_1MiddleBody, v_jMiddleBody));
+				glNormal3f(normal2.x, normal2.y, normal2.z);
 				glVertex3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody),			yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), 			zMiddleBody(u_iMiddleBody, v_j_1MiddleBody));
 				glVertex3f(xMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody),			yMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody),		zMiddleBody(u_i_1MiddleBody, v_j_1MiddleBody));
 			glEnd();

@@ -77,12 +77,19 @@ public class Scene {
 		glPopMatrix();
 
 		glPushMatrix();
+			terrain.drawEnd();
+		glPopMatrix();
+		
+		glPushMatrix();
 			glTranslatef(player.getPosition().x, player.getPosition().y, player.getPosition().z);
 			glRotatef(player.getRotY(), 0, 1, 0);
 			player.getModel().draw(player.getMoveAngle());
 		glPopMatrix();
 	}
 
+	/*
+	 * initiates our Ambient lightning and turns all lights on
+	 */
 	private void initLighting() {
 		
 		
@@ -98,6 +105,9 @@ public class Scene {
 		pointLight.turnLightOn();
 	}	
 
+	/*
+	 * updates current spotlight position.
+	 */
 	private void updateSpotLight() {
 		float light0_position[] = { player.getPosition().x, 16.0f, player.getPosition().z, 1.0f }; // x,y,z,1
 		float light0_diff_spec[] = { 1f, 1f, 1f, 1.0f };
@@ -111,8 +121,12 @@ public class Scene {
 		
 		glEnable(GL_LIGHTING);
 	}
+	
+	/*
+	 * updates the pointlights position
+	 */
 	private void updatePointLight() {
-		float light1_position[] = { player.getPosition().x, 16.0f, player.getPosition().z, 1.0f }; // x,y,z,1
+		float light1_position[] = { player.getPosition().x, 0.0f, player.getPosition().z, 1.0f }; // x,y,z,1
 		float light1_diff_spec[] = { 1f, 1f, 1f, 1.0f };
 		
 		// Eine weitere Lichtquellen definieren

@@ -4,11 +4,14 @@ import org.joml.Vector3f;
 
 public class Entity {
 
-	private Model model;
-	public Vector3f position;
-	private float rotX, rotY, rotZ;
-	private float scale;
+	private Model model; // model object which later contains our drawn entity 
+	public Vector3f position; // position of our entity model
+	private float rotX, rotY, rotZ; // rotation around different axes 
+	private float scale; //scale of the player model
 	
+	/*
+	 * Constructor which is inheritanced to all childclasses.
+	 */
 	public Entity(Model model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
 		super();
 		this.setModel(model);
@@ -19,22 +22,33 @@ public class Entity {
 		this.scale = scale;
 	}
 	
+	/*
+	 * method which increases or decreases the entities current position
+	 */
 	public void increasePosition(float dx, float dy, float dz) {
 		this.position.x += dx;
 		this.position.y += dy;
 		this.position.z += dz;
 	}
-	
+	/*
+	 * method which increases or decreases the entities current rotation
+	 */
 	public void increaseRotation(float dx, float dy, float dz) {
 		this.rotX += dx;
 		this.rotY += dy;
 		this.rotZ += dz;
 	}
 
+	/*
+	 * Method which returns the current entities position
+	 */
 	public Vector3f getPosition() {
 		return position;
 	}
 
+	/*
+	 * Method which sets the current entities position
+	 */
 	public void setPosition(Vector3f position) {
 		this.position = position;
 	}

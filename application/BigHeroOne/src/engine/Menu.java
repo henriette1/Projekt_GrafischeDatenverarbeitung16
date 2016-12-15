@@ -10,6 +10,9 @@ public class Menu {
 	
 	private Lightning spotlight = new Lightning(GL_LIGHT5);
 
+	/*
+	 * initializes our Menu and therfore the camera position and perspective
+	 */
 	public void initMenu() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -24,6 +27,9 @@ public class Menu {
 		initLighting();
 	}
 	
+	/*
+	 * renders the objects which our menu contains in every frame/loop
+	 */
 	public void renderMenu(){
 		glPushMatrix();
 			drawTriangle();
@@ -32,6 +38,9 @@ public class Menu {
 		
 	}
 	
+	/*
+	 * draws the triangle which lets us start the game
+	 */
 	private void drawTriangle(){
 		float []params = {1.f, 1.f, 1.f, 1.f};
 		float m = 200, n = 201;
@@ -72,6 +81,9 @@ public class Menu {
 	float innenR = .4f;		
 	private float winkel;
 	
+	/*
+	 * draws the torus surrounding our triangle
+	 */
 	private void drawTorus()
 	{	
 		float []params = {1.f, 1.f, 1.f, 1.f};
@@ -80,8 +92,8 @@ public class Menu {
 		float u_iTorus , u_i_1Torus , v_jTorus , v_j_1Torus;									//Eckpunkte einer Facette
 		float 	uaTorus = -(float) (2*Math.PI), ueTorus = (float) (2*Math.PI),		//Anfang und Ende des u-Bereichs
 				vaTorus = -(float) (2*Math.PI), veTorus = (float) (2*Math.PI);		//Anfang und Ende des v-Bereichs
-		float deltaUTorus = (float)(ueTorus-uaTorus)/mTorus;									//wie groß ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVTorus = (float)(veTorus-vaTorus)/nTorus;									//wie groß ein einzelner Teilschritt sein muss in v-Richtung
+		float deltaUTorus = (float)(ueTorus-uaTorus)/mTorus;									//wie groï¿½ ein einzelner Teilschritt sein muss in u-Richtung
+		float deltaVTorus = (float)(veTorus-vaTorus)/nTorus;									//wie groï¿½ ein einzelner Teilschritt sein muss in v-Richtung
 		float winkel = 0;
 	
 		

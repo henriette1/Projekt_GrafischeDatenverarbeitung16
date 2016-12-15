@@ -15,7 +15,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import entities.Camera;
 import entities.Terrain;
-import sun.java2d.pipe.TextRenderer;
 import entities.Model;
 import entities.Player;
 
@@ -25,7 +24,7 @@ public class DisplayManager {
 
     private Scene scene = new Scene();
     private Menu menu = new Menu();
-    private int WIDTH = 600, HEIGHT = 600;
+    private int WIDTH = 700, HEIGHT = 700;
     
     private static final int FPS_CAP = 120;
     private long variableYieldTime, lastTime;
@@ -38,7 +37,7 @@ public class DisplayManager {
 	private static boolean mouseLeft = false;
 	private static boolean mouseRight = false;
 	private Model model = new Model();
-	private Player player = new Player(model, new Vector3f(10,0,500), 0, 180, 0, 1f);
+	private Player player = new Player(model, new Vector3f(65,0,80), 0, 280, 0, 1f);
 	private Camera camera = new Camera(player);
 
 	protected boolean inWindow = false;
@@ -265,6 +264,9 @@ public class DisplayManager {
             long currentFrameTime = getCurrentTime();
             delta = (float) (currentFrameTime - lastFrameTime) / 1000;
             lastFrameTime = currentFrameTime;
+            if(player.getPosition().x < 20 && 
+            		(player.getPosition().z > 393 && player.getPosition().z < 513))
+            	glfwSetWindowShouldClose(window, true);
         }
     }
     

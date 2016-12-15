@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import engine.Materials;
@@ -15,7 +14,6 @@ public class Terrain {
 	
 	private static final float MAX_HEIGHT = 40;
 	private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
-	private static final float SIZE = 100;
 	
 	public static float [][] heightMapCoords; 
 	
@@ -58,7 +56,7 @@ public class Terrain {
 	
 	private void loadHeightMap() {
 		try {
-			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap.png"));
+			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -192,5 +190,29 @@ public class Terrain {
 	
 	public float getMaxHeight(){
 		return MAX_HEIGHT;
+	}
+	
+	public void drawEnd() {
+		int width_begin = 393;
+		int width_end = 513;
+		int height = 60;
+		int xCoord = 22;
+		float mat_ambient[] = {1f, 1f, 1f, 1.f};
+		float shininess = 100f;
+		
+		for(int i = 0; i < height; i++) {
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
+		glMaterialf(GL_FRONT_FACE, GL_SHININESS, shininess);
+		
+		glBegin(GL_TRIANGLE_STRIP);
+			for(int j = width_begin; j < width_end; j++) {
+				
+				glNormal3f(1.f, 0, 0);
+				glVertex3f(xCoord, i, j);
+				glVertex3f(xCoord, i+1, j);
+			}
+			glEnd();
+		}
+		
 	}
 }
