@@ -17,7 +17,7 @@ public class Camera {
 	private float angleAroundPlayer = 0; //angle around player (free camera movement on a circle around the Player
 
 	private Vector3f position = new Vector3f(0, 0, 0); //default Position
-	private float pitch =50; // view angle (y)
+	private float pitch =15; // view angle (y)
 	private float yaw = 0; // view angle (x/y)
 
 	private Player player; //Player Object

@@ -56,7 +56,7 @@ public class Terrain {
 	
 	private void loadHeightMap() {
 		try {
-			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap3.png"));
+			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap6.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

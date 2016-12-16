@@ -58,8 +58,15 @@ public class Scene {
 	public void renderLoop() {
 		player.move(calculateVectorDirectionBetweenEyeAndCenter());
 		camera.move();
-		m.setLookAt(camera.getPosition(), player.getPosition(),
-				calculateUpVectorOfCameraPosition(secondOrthogonalVector));
+		m.setLookAt(camera.getPosition().x,
+				camera.getPosition().y + 10,
+				camera.getPosition().z,
+				player.getPosition().x,
+				player.getPosition().y + 10,
+				player.getPosition().z,
+				calculateUpVectorOfCameraPosition(secondOrthogonalVector).x,
+				calculateUpVectorOfCameraPosition(secondOrthogonalVector).y,
+				calculateUpVectorOfCameraPosition(secondOrthogonalVector).z);
 		m.get(fb);
 
 		glLoadMatrixf(fb);

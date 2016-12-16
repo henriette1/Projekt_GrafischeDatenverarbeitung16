@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.joml.Vector3f;
 
+import engine.Materials;
 import engine.Utils;
 
 public class Head {
@@ -24,6 +25,7 @@ public class Head {
 		public void drawHead()
 		{	
 			glPushMatrix();
+				Materials.materialBigHeroOne();
 				doHead();
 				glPushMatrix();
 //					glTranslatef(-a/2.f, 0.2f, c/2.f+0.25f);
@@ -32,10 +34,12 @@ public class Head {
 				glPushMatrix();
 					glTranslatef(xConnection(ueConnection, veConnection), yConnection(ueConnection, veConnection), zConnection(ueConnection, veConnection));
 					glRotatef(10, 0, 1, 1);
+					Materials.materialEmerald();
 					doEye();
 				glPopMatrix();
 				glPushMatrix();
 					glTranslatef(0, 0, 0.001f);
+					Materials.materialEmerald();
 					doConnection();
 				glPopMatrix();
 			glPopMatrix();
