@@ -162,6 +162,8 @@ public class DisplayManager {
     		} else if(state == State.MAIN_MENU) {
             	currentXpos = xpos;
             	currentYpos = ypos;
+            	menu.setRotationParam(WIDTH, currentXpos, currentYpos);
+            	
             }
     	});
 

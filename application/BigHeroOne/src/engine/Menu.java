@@ -33,9 +33,19 @@ public class Menu {
 	public void renderMenu(){
 		glPushMatrix();
 			drawTriangle();
+			if((Math.pow(currentCursorPosX-windowWidth/2., 2) + Math.pow(currentCursorPosY-windowWidth/2., 2)) <= Math.pow(windowWidth/3.9, 2)){
+        		increaseWinkel();
+        	}
+			glRotatef(winkel, 0, 1, -1);
+			drawTorus();
+			glLoadIdentity();
+			glRotatef(winkel, -1, 0, 1);
 			drawTorus();
 		glPopMatrix();
 		
+		if((Math.pow(currentCursorPosX-windowWidth/2., 2) + Math.pow(currentCursorPosY-windowWidth/2., 2)) > Math.pow(windowWidth/3.9, 2)){
+			winkel = 0;
+		}
 	}
 	
 	/*
@@ -79,7 +89,10 @@ public class Menu {
 	
 	float aussenR = 3.f;													//Abstand des Innenkreises zum Ursprung 
 	float innenR = .4f;		
-	private float winkel;
+	private float winkel = 1.f;
+	private int windowWidth;
+	private double currentCursorPosX;
+	private double currentCursorPosY;
 	
 	/*
 	 * draws the torus surrounding our triangle
@@ -97,7 +110,7 @@ public class Menu {
 		float winkel = 0;
 	
 		
-		glLoadIdentity();
+//		glLoadIdentity();
 		glPushMatrix();
 		glRotatef(winkel, 1, 0, -1);
 
@@ -173,6 +186,12 @@ public class Menu {
 	}
 	
 	public void increaseWinkel(){
-		winkel=(winkel+1.f)%360;
+			winkel=(winkel+20.f)%360;
+	}
+
+	public void setRotationParam(int width, double currentXpos, double currentYpos) {
+		this.windowWidth = width;
+		this.currentCursorPosX = currentXpos;
+		this.currentCursorPosY = currentYpos;
 	}
 }

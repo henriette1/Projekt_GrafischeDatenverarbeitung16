@@ -56,7 +56,7 @@ public class Terrain {
 	
 	private void loadHeightMap() {
 		try {
-			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap6.png"));
+			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -67,7 +67,6 @@ public class Terrain {
 		WIDTH = HeightMapMesh.getWidth();
 		HEIGHT = HeightMapMesh.getHeight();
 		heightMapCoords = new float[WIDTH][HEIGHT];
-		System.out.println(WIDTH + "\t" + HEIGHT);
 		
 		glNewList(this.index, GL_COMPILE);
 			for(int z = 0; z < (HEIGHT-1); z++) {
