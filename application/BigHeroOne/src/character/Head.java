@@ -14,7 +14,7 @@ public class Head {
 			int mHead = 30;															//u-Schritte
 			int nHead = 30;															//v-Schritte
 			float aHead = 1.5f;														//x-Achsenabschnitt
-			float bHead = 0.75f;														//y-Achsenabschnitt
+			float bHead = 1.0f;														//y-Achsenabschnitt
 			float cHead = 1.2f;														//z-Achsenabschnitt
 			float u_iHead , u_i_1Head , v_jHead , v_j_1Head;									//Eckpunkte einer Facette
 			float 	uaHead = (float) 0, ueHead = (float)(2*Math.PI),					//Anfang und Ende des u-Bereichs

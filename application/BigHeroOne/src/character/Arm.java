@@ -25,8 +25,8 @@ public class Arm{
 	}
 	
 	// private Variablen
-		int mArm = 30;															//u-Schritte
-		int nArm = 30;															//v-Schritte
+		int mArm = 60;															//u-Schritte
+		int nArm = 60;															//v-Schritte
 		float intervalArm = 3;													//u-Abschnitt
 		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;							//Eckpunkte einer Facette
 		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,				//Anfang und Ende des u-Bereichs

@@ -67,30 +67,30 @@ public class Terrain {
 		WIDTH = HeightMapMesh.getWidth();
 		HEIGHT = HeightMapMesh.getHeight();
 		heightMapCoords = new float[WIDTH][HEIGHT];
-		
+		int m = 1;
 		glNewList(this.index, GL_COMPILE);
-			for(int z = 0; z < (HEIGHT-1); z++) {
+			for(int z = 0; z < m*(HEIGHT-1); z++) {
 				glBegin(GL_TRIANGLE_STRIP);
-				for(int x = 0; x < WIDTH; x++) {
+				for(int x = 0; x < m*WIDTH; x++) {
 					
 					heightMapCoords[x][z] = getHeight(x, z, HeightMapMesh);
 					
-					Vector3f drawnVecOne = new Vector3f(x, 
-							getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2, 
-							z);
+					Vector3f drawnVecOne = new Vector3f(x/m, 
+							getHeight(x/m, z/m, HeightMapMesh) + MAX_HEIGHT / 2, 
+							z/m);
 
 					Vector3f normalOne = Utils.calculateNormalVector(
 							drawnVecOne, 
-							getHeight(x+1, z, HeightMapMesh) + MAX_HEIGHT / 2, 
-							getHeight(x, z-1, HeightMapMesh) + MAX_HEIGHT / 2);
+							getHeight((x+1)/m, z/m, HeightMapMesh) + MAX_HEIGHT / 2, 
+							getHeight(x/m, (z-1)/m, HeightMapMesh) + MAX_HEIGHT / 2);
 					
 					glNormal3f(-normalOne.x, -normalOne.y, -normalOne.z);
-					glVertex3f(x, 
-							getHeight(x, z, HeightMapMesh) + MAX_HEIGHT / 2, 
-							z);
-					glVertex3f(x, 
-							getHeight(x, z + 1, HeightMapMesh) + MAX_HEIGHT / 2, 
-							(z+1));
+					glVertex3f(x/m, 
+							getHeight(x/m, z/m, HeightMapMesh) + MAX_HEIGHT / 2, 
+							z/m);
+					glVertex3f(x/m, 
+							getHeight(x/m, (z + 1)/m, HeightMapMesh) + MAX_HEIGHT / 2, 
+							(z+1)/m);
 				}
 				glEnd();
 			}
@@ -99,16 +99,17 @@ public class Terrain {
 	
 	private void compileGroundList() {
 		glNewList(this.index + 1, GL_COMPILE);
-			for(int z = 0; z < HEIGHT; z++) {
+			float m = 4.f;
+			for(int z = 0; z < m *HEIGHT; z++) {
 				glBegin(GL_TRIANGLE_STRIP);
-				for(int x = 0; x < WIDTH; x++) {
+				for(int x = 0; x < m*WIDTH; x++) {
 					Vector3f firstPoint= new Vector3f(x, 0.1f, z);
 					
 					Vector3f normalGround = Utils.calculateNormalVector(firstPoint, 0, 0);
 					
 					glNormal3f(normalGround.x, normalGround.y, normalGround.z);
-					glVertex3f(x, 0.1f, z);
-					glVertex3f(x, 0.1f, (z + 1));
+					glVertex3f(x/m, 0.1f, z/m);
+					glVertex3f(x/m, 0.1f, (z + 1)/m);
 					
 					
 				}
