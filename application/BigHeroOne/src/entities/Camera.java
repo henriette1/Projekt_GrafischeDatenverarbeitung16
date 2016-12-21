@@ -9,6 +9,8 @@ public class Camera {
 	
 	private static final float TERRAIN_HEIGHT = 0;
 
+	private float[][] HEIGHT_MAP;
+	
 	public static float dxRotate; //contains value of left mousebutton Callback
 	public static float dyPitch; //contains the value of right mousebutton callback
 	public static float dyZoom; // contains the value of ScrollCallback
@@ -21,6 +23,12 @@ public class Camera {
 	private float yaw = 0; // view angle (x/y)
 
 	private Player player; //Player Object
+
+	private Terrain terrain;
+
+	private boolean collisionLeft;
+
+	private boolean collisionRight;
 
 	/*
 	 * generates a player object
@@ -39,14 +47,14 @@ public class Camera {
 	/*
 	 * calls the calculations for the cameraposition
 	 */
-	public void move() {
-		calculateZoom();
-		calculateAngleAroundPlayer();
-		calculatePitch();
-		float horizontalDistance = calculateHorizontalDistance();
-		float verticalDistance = calculateVerticalDistance();
-		calculateCameraPosition(horizontalDistance, verticalDistance);
-		this.yaw = 180 - (player.getRotY() * this.angleAroundPlayer);
+	public void move() {		
+			calculateZoom();
+			calculateAngleAroundPlayer();
+			calculatePitch();
+			float horizontalDistance = calculateHorizontalDistance();
+			float verticalDistance = calculateVerticalDistance();
+			calculateCameraPosition(horizontalDistance, verticalDistance);
+			this.yaw = 180 - (player.getRotY() * this.angleAroundPlayer);
 	}
 
 	/*
@@ -136,15 +144,54 @@ public class Camera {
 	 * calculates the angle of the Vector between Camera and Player on the x-y
 	 */
 	public void calculateAngleAroundPlayer() {
+		
+		
 		float xPos;  // current mouse position
-	    float xOffset; // mouse movement
-	    xPos = (float)dxRotate;
-	    xOffset = xPos - mousePosStart.x;
-	    if(DisplayManager.isMouseLeft()) {
-	    	float angleChange = (float)(xOffset * 0.3f);
-	    	angleAroundPlayer -= angleChange;
-	    }
-		mousePosStart.x = xPos;
+		float xOffset; // mouse movement		
+		    xPos = (float)dxRotate;
+		    
+		    xOffset = xPos - mousePosStart.x;
+		    if(DisplayManager.isMouseLeft()) {
+		    		float angleChange = (float)(xOffset * 0.3f);
+			    	angleAroundPlayer -= angleChange;		    		
+		   }
+		    
+			mousePosStart.x = xPos;
+		
 	}
+	
+	private float[][] setHeightMap(){
+		return terrain.getHeightMapCoords();
+	}
+
+
+	public void setTerrain(Terrain terrain) {
+		this.terrain = terrain;
+		
+	}
+	
+//	private boolean collision(){
+//		Vector3f currentCameraPosition = getPosition();
+//		int halfBoxSize = 1;
+//		HEIGHT_MAP = setHeightMap();
+//		boolean collision = true;
+//		for(int i = -halfBoxSize; i<halfBoxSize; i++){
+//			for(int j = -halfBoxSize; j<halfBoxSize; j++){
+//				for(int k = -halfBoxSize; k<halfBoxSize; k++){
+//					if(HEIGHT_MAP[(int)currentCameraPosition.x+i][(int)currentCameraPosition.z+j] + k - getPosition().y <= 0.1){
+//						if(i<0){
+//							collisionLeft = true;
+//						}
+//						else{
+//							collisionRight = true;
+//						}
+//						collision = false;
+//					}
+//				}
+//			}
+//			
+//		}		
+//		return collision;		
+//	}
 
 }

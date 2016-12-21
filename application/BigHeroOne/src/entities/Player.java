@@ -40,7 +40,7 @@ public class Player extends Entity {
 		float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotY())));
 		float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotY())));
 		super.increasePosition(dx, 0, dz);
-		this.movementDirection = movementDirection.normalize().mul(3.5f);
+		this.movementDirection = movementDirection.normalize().mul(7.f);
 	}
 	
 	/*

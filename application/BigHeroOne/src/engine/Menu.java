@@ -62,9 +62,9 @@ public class Menu {
 		glLoadIdentity();
 		glPushMatrix();
 		glRotatef(-90, 0, 0, 1);
+//		glRotatef(30, 1,1,0);
 		glTranslatef(0,0.5f,0);
 
-		
 		for(float i = 0; i < m; i++) {
 
 			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, params);
@@ -73,12 +73,12 @@ public class Menu {
 				for(float j = 0; j < n; j++) {
 					glPolygonMode(GL_FRONT, GL_LINE);
 					glNormal3f(0, 0, 1);
-					Materials.materialEmerald();
-
-					glVertex3f(i*delta_x/2+2*j*delta_x/2 -width/2, i*delta_y-height/2, 0);
+					Materials.materialRuby();
 					
-					if(j >= n-1) break;
-					glVertex3f(i*delta_x/2+((2*j)+1)*delta_x/2 -width/2, (i+1)*delta_y-height/2, 0);
+						glVertex3f(i*delta_x/2+2*j*delta_x/2 -width/2, i*delta_y-height/2, -j);
+						
+						if(j >= n-1) break;
+						glVertex3f(i*delta_x/2+((2*j)+1)*delta_x/2 -width/2, (i+1)*delta_y-height/2, 0);		
 				}
 				n-=1;
 			glEnd();	

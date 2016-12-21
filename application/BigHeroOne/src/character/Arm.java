@@ -25,15 +25,15 @@ public class Arm{
 	}
 	
 	// private Variablen
-		int mArm = 60;															//u-Schritte
-		int nArm = 60;															//v-Schritte
-		float intervalArm = 3;													//u-Abschnitt
-		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;							//Eckpunkte einer Facette
-		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,				//Anfang und Ende des u-Bereichs
-				vaUpperArm = 0.f, veUpperArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;							//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;							//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-		float rArm = 0.75f;																//Radius 
+		int mArm = 60;															//u-Steps
+		int nArm = 60;															//v-Steps
+		float intervalArm = 3;													//Interval where teh function is calculated
+		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;		//Corners of a facet
+		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,			//Start and End of the u-Area
+				vaUpperArm = 0.f, veUpperArm = (float)(2*Math.PI);				//Start and End of the v-Area
+		float deltaUUpperArm = (float)(ueUpperArm-uaUpperArm)/mArm;				//how big a single step is in u-Direction
+		float deltaVUpperArm = (float)(veUpperArm-vaUpperArm)/nArm;				//how big a single step is in v-Direction
+		float rArm = 0.75f;														//Radius for the body of rotation
 	
 	private void doUpperArm()
 	{
@@ -41,7 +41,7 @@ public class Arm{
 		for(int i = 0; i<mArm; i++){
 			for(int j = 0; j<nArm; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares the corners of a facet	
 			u_iUpperArm 		= uaUpperArm + i * deltaUUpperArm;
 			u_i_1UpperArm 	= u_iUpperArm + deltaUUpperArm;
 			v_jUpperArm 		= vaUpperArm + j * deltaVUpperArm;
@@ -52,7 +52,7 @@ public class Arm{
 								new Vector3f(xArm(u_i_1UpperArm,v_jUpperArm), yArm(u_i_1UpperArm,v_jUpperArm), zArm(u_i_1UpperArm, v_jUpperArm)),
 								new Vector3f(xArm(u_iUpperArm,v_j_1UpperArm), yArm(u_iUpperArm,v_j_1UpperArm), zArm(u_iUpperArm, v_j_1UpperArm)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);	
 				glNormal3f(normal.x, normal.y, normal.z);				
 				glVertex3f(xArm(u_iUpperArm,v_jUpperArm),				yArm(u_iUpperArm,v_jUpperArm), 			zArm(u_iUpperArm, v_jUpperArm));
@@ -65,11 +65,11 @@ public class Arm{
 	}
 
 	
-	float u_iForeArm , u_i_1ForeArm , v_jForeArm , v_j_1ForeArm;							//Eckpunkte einer Facette
-	float 	uaForeArm = -intervalArm, ueForeArm = 0.f,				//Anfang und Ende des u-Bereichs
-			vaForeArm = 0, veForeArm = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;							//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;							//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
+	float u_iForeArm , u_i_1ForeArm , v_jForeArm , v_j_1ForeArm;				//corners of a facet
+	float 	uaForeArm = -intervalArm, ueForeArm = 0.f,							//Start and End of the u-Area
+			vaForeArm = 0, veForeArm = (float)(2*Math.PI);						//Start and End of the v-Area
+	float deltaUForeArm = (float)(ueForeArm-uaForeArm)/mArm;					//how big a single step is in u-Direction
+	float deltaVForeArm = (float)(veForeArm-vaForeArm)/nArm;					//how big a single step is in v-Direction
 	
 	private void doForeArm()
 	{
@@ -78,7 +78,7 @@ public class Arm{
 		for(int i = 0; i<mArm; i++){
 			for(int j = 0; j<nArm; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet	
 			u_iForeArm 		= uaForeArm + i * deltaUForeArm;
 			u_i_1ForeArm 	= u_iForeArm + deltaUForeArm;
 			v_jForeArm 		= vaForeArm + j * deltaVForeArm;
@@ -89,7 +89,7 @@ public class Arm{
 					new Vector3f(xArm(u_i_1ForeArm,v_jForeArm), yArm(u_i_1ForeArm,v_jForeArm), zArm(u_i_1ForeArm, v_jForeArm)),
 					new Vector3f(xArm(u_iForeArm,v_j_1ForeArm), yArm(u_iForeArm,v_j_1ForeArm), zArm(u_iForeArm, v_j_1ForeArm)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);	
 				glVertex3f(xArm(u_iForeArm,v_jForeArm),				yArm(u_iForeArm,v_jForeArm), 			zArm(u_iForeArm, v_jForeArm));
@@ -124,14 +124,14 @@ public class Arm{
 	}
 	
 	
-	int mHand = 30;																	//u-Schritte
-	int nHand = 30;																	//v-Schritte
-	float u_iHand , u_i_1Hand , v_jHand , v_j_1Hand;								//Eckpunkte einer Facette
-	float 	uaHand = 0, ueHand = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
-			vaHand = 0, veHand = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUHand = (float)(ueHand-uaHand)/mHand;								//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVHand = (float)(veHand-vaHand)/nHand;								//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rHand = zArm(ueUpperArm, vaUpperArm);												//Radius 
+	int mHand = 30;																//u-Steps
+	int nHand = 30;																//v-Steps
+	float u_iHand , u_i_1Hand , v_jHand , v_j_1Hand;							//corners of a facet
+	float 	uaHand = 0, ueHand = (float) (Math.PI) ,							//Start and End of the u-Area
+			vaHand = 0, veHand = (float)(Math.PI);								//Start and End of the v-Area
+	float deltaUHand = (float)(ueHand-uaHand)/mHand;							//how big a single step is in u-Direction
+	float deltaVHand = (float)(veHand-vaHand)/nHand;							//how big a single step is in v-Direction
+	float rHand = zArm(ueUpperArm, vaUpperArm);									//Radius for the hemisphere
 	
 	
 	private void doHand()
@@ -141,7 +141,7 @@ public class Arm{
 		for(int i = 0; i<mHand; i++){
 			for(int j = 0; j<nHand; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet	
 			u_iHand 		= uaHand + i * deltaUHand;
 			u_i_1Hand 	= u_iHand + deltaUHand;
 			v_jHand 		= vaHand + j * deltaVHand;
@@ -152,7 +152,7 @@ public class Arm{
 					new Vector3f(xHand(u_i_1Hand,v_jHand), yHand(u_i_1Hand,v_jHand), zHand(u_i_1Hand, v_jHand)),
 					new Vector3f(xHand(u_iHand,v_j_1Hand), yHand(u_iHand,v_j_1Hand), zHand(u_iHand, v_j_1Hand)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);		
 				glVertex3f(xHand(u_iHand,v_jHand),			yHand(u_iHand,v_jHand), 			zHand(u_iHand, v_jHand));
@@ -181,14 +181,14 @@ public class Arm{
 		return (float)(rHand*Math.cos(u));
 	}
 	
-	int mJoint = 30;																	//u-Schritte
-	int nJoint = 30;																	//v-Schritte
-	float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;								//Eckpunkte einer Facette
-	float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Anfang und Ende des u-Bereichs
-			vaJoint = 0, veJoint = (float) (2*Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;								//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;								//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rJoint = rArm;														//Radius 
+	int mJoint = 30;																//u-Steps
+	int nJoint = 30;																//v-Steps
+	float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;							//corners of a facet
+	float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Start and End of the u-Area
+			vaJoint = 0, veJoint = (float) (2*Math.PI);								//Start and End of the v-Area
+	float deltaUJoint = (float)(ueJoint-uaJoint)/mJoint;							//how big a single step is in u-Direction
+	float deltaVJoint = (float)(veJoint-vaJoint)/nJoint;							//how big a single step is in v-Direction
+	float rJoint = rArm;															//Radius of the sphere 
 	
 	
 	private void doJoint()
@@ -198,7 +198,7 @@ public class Arm{
 		for(int i = 0; i<mJoint; i++){
 			for(int j = 0; j<nJoint; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet
 			u_iJoint 		= uaJoint + i * deltaUJoint;
 			u_i_1Joint 	= u_iJoint + deltaUJoint;
 			v_jJoint 		= vaJoint + j * deltaVJoint;
@@ -209,7 +209,7 @@ public class Arm{
 					new Vector3f(xJoint(u_i_1Joint,v_jJoint), yJoint(u_i_1Joint,v_jJoint), zJoint(u_i_1Joint, v_jJoint)),
 					new Vector3f(xJoint(u_iJoint,v_j_1Joint), yJoint(u_iJoint,v_j_1Joint), zJoint(u_iJoint, v_j_1Joint)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);	
 				glVertex3f(xJoint(u_iJoint,v_jJoint),			yJoint(u_iJoint,v_jJoint), 			zJoint(u_iJoint, v_jJoint));
@@ -238,7 +238,7 @@ public class Arm{
 		return (float)(rJoint*Math.cos(u));
 	}
 	
-	float rUpperJoint = armFunction(intervalArm)-rArm;																//Radius 
+	float rUpperJoint = armFunction(intervalArm)-rArm;										//Radius 
 	
 	private void doUpperJoint()
 	{
@@ -247,7 +247,7 @@ public class Arm{
 		for(int i = 0; i<mJoint; i++){
 			for(int j = 0; j<nJoint; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of facet	
 			u_iJoint 		= uaJoint + i * deltaUJoint;
 			u_i_1Joint 		= u_iJoint + deltaUJoint;
 			v_jJoint 		= vaJoint + j * deltaVJoint;
@@ -258,7 +258,7 @@ public class Arm{
 					new Vector3f(xUpperJoint(u_i_1Joint,v_jJoint), yUpperJoint(u_i_1Joint,v_jJoint), zUpperJoint(u_i_1Joint, v_jJoint)),
 					new Vector3f(xUpperJoint(u_iJoint,v_j_1Joint), yUpperJoint(u_iJoint,v_j_1Joint), zUpperJoint(u_iJoint, v_j_1Joint)));
 			
-			//Erstellung einer Facette
+			////builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);	
 				glVertex3f(xUpperJoint(u_iJoint,v_jJoint),			yUpperJoint(u_iJoint,v_jJoint), 			zUpperJoint(u_iJoint, v_jJoint));

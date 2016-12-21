@@ -78,8 +78,13 @@ public class Scene {
 		glPopMatrix();
 		
 		glPushMatrix();
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glPolygonMode(GL_BACK, GL_FILL);
+			glPolygonMode(GL_FRONT, GL_POINT);
 			terrain.generateCave();
+		glPopMatrix();
+		
+		glPushMatrix();
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			terrain.generateGround();
 		glPopMatrix();
 

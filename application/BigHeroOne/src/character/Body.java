@@ -21,17 +21,17 @@ public class Body {
 		glPopMatrix();
 	}
 
-	int mLowerBody = 30;																	//u-Schritte
-	int nLowerBody = 30;																//v-Schritte
-	float aLower = 3.f;
-	float bLower = 2.f;
-	float cLower = 3.f;
-	float u_iLowerBody , u_i_1LowerBody , v_jLowerBody , v_j_1LowerBody;								//Eckpunkte einer Facette
-	float 	uaLowerBody = 0, ueLowerBody = (float) (2*Math.PI) ,								//Anfang und Ende des u-Bereichs
-			vaLowerBody = (float)(-Math.PI/2), veLowerBody = (float)0;									//Anfang und Ende des v-Bereichs
-	float deltaULowerBody = (float)(ueLowerBody-uaLowerBody)/mLowerBody;								//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;								//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rLowerBody = 5.f;																//Radius 
+	int mLowerBody = 30;																//u-Steps
+	int nLowerBody = 30;																//v-Steps
+	float aLower = 3.f;																	//length in x-Direction
+	float bLower = 2.f;																	//length in y-Direction
+	float cLower = 3.f;																	//length in z-Direction
+	float u_iLowerBody , u_i_1LowerBody , v_jLowerBody , v_j_1LowerBody;				//corners of a facet
+	float 	uaLowerBody = 0, ueLowerBody = (float) (2*Math.PI) ,						//Start and End of the u-Area
+			vaLowerBody = (float)(-Math.PI/2), veLowerBody = (float)0;					//Start and End of the v-Area
+	float deltaULowerBody = (float)(ueLowerBody-uaLowerBody)/mLowerBody;				//how big a single step is in u-Direction
+	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;				//how big a single step is in v-Direction
+	float rLowerBody = 5.f;																//Radius of the sphere
 	
 	
 	private void doLowerBody()
@@ -41,7 +41,7 @@ public class Body {
 		for(int i = 0; i<mLowerBody; i++){
 			for(int j = 0; j<nLowerBody; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet	
 			u_iLowerBody 		= uaLowerBody + i * deltaULowerBody;
 			u_i_1LowerBody 	= u_iLowerBody + deltaULowerBody;
 			v_jLowerBody 		= vaLowerBody + j * deltaVLowerBody;
@@ -52,7 +52,7 @@ public class Body {
 					new Vector3f(xLowerBody(u_i_1LowerBody,v_jLowerBody), yLowerBody(u_i_1LowerBody,v_jLowerBody), zLowerBody(u_i_1LowerBody, v_jLowerBody)),
 					new Vector3f(xLowerBody(u_iLowerBody,v_j_1LowerBody), yLowerBody(u_iLowerBody,v_j_1LowerBody), zLowerBody(u_iLowerBody, v_j_1LowerBody))).mul(1);
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xLowerBody(u_iLowerBody,v_jLowerBody),			yLowerBody(u_iLowerBody,v_jLowerBody), 			zLowerBody(u_iLowerBody, v_jLowerBody));
@@ -80,17 +80,17 @@ public class Body {
 	}
 		
 	
-	int mUpperBody = 30;																	//u-Schritte
-	int nUpperBody = 30;																//v-Schritte
-	float aUpper = 2.f;
-	float bUpper = 1.f;
-	float cUpper = 2.f;
-	float u_iUpperBody , u_i_1UpperBody , v_jUpperBody , v_j_1UpperBody;								//Eckpunkte einer Facette
-	float 	uaUpperBody = 0, ueUpperBody = (float) (2*Math.PI) ,								//Anfang und Ende des u-Bereichs
-			vaUpperBody = (float)0, veUpperBody = (float)(Math.PI/2);									//Anfang und Ende des v-Bereichs
-	float deltaUUpperBody = (float)(ueUpperBody-uaUpperBody)/mUpperBody;								//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVUpperBody = (float)(veUpperBody-vaUpperBody)/nUpperBody;								//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rUpperBody = 4.f;												//Radius 
+	int mUpperBody = 30;															//u-Steps
+	int nUpperBody = 30;															//v-Steps
+	float aUpper = 2.f;																//x-Direction
+	float bUpper = 1.f;																//y-Direction
+	float cUpper = 2.f;																//z-Direction
+	float u_iUpperBody , u_i_1UpperBody , v_jUpperBody , v_j_1UpperBody;			//corners of a facet
+	float 	uaUpperBody = 0, ueUpperBody = (float) (2*Math.PI) ,					//Start and End of the u-Area
+			vaUpperBody = (float)0, veUpperBody = (float)(Math.PI/2);				//Start and End of the v-Area
+	float deltaUUpperBody = (float)(ueUpperBody-uaUpperBody)/mUpperBody;			//how big a single step is in u-Direction
+	float deltaVUpperBody = (float)(veUpperBody-vaUpperBody)/nUpperBody;			//how big a single step is in v-Direction
+	float rUpperBody = 4.f;															//Radius of the ellipse
 	
 	
 	private void doUpperBody()
@@ -100,7 +100,7 @@ public class Body {
 		for(int i = 0; i<mUpperBody; i++){
 			for(int j = 0; j<nUpperBody; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet
 			u_iUpperBody 		= uaUpperBody + i * deltaUUpperBody;
 			u_i_1UpperBody 	= u_iUpperBody + deltaUUpperBody;
 			v_jUpperBody 		= vaUpperBody + j * deltaVUpperBody;
@@ -111,7 +111,7 @@ public class Body {
 					new Vector3f(xUpperBody(u_i_1UpperBody,v_jUpperBody), yUpperBody(u_i_1UpperBody,v_jUpperBody), zUpperBody(u_i_1UpperBody, v_jUpperBody)),
 					new Vector3f(xUpperBody(u_iUpperBody,v_j_1UpperBody), yUpperBody(u_iUpperBody,v_j_1UpperBody), zUpperBody(u_iUpperBody, v_j_1UpperBody))).mul(-1);
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xUpperBody(u_iUpperBody,v_jUpperBody),			yUpperBody(u_iUpperBody,v_jUpperBody), 			zUpperBody(u_iUpperBody, v_jUpperBody));

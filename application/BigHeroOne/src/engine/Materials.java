@@ -72,5 +72,17 @@ public class Materials {
 		
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
 	}
+	
+	public static void materialRuby() {
+		float mat_ambient[] = {0.17f, 0.01f, 0.01f, .5f};
+		float mat_diffuse[] = {.61f, .04f, .04f, .5f};
+		float mat_specluar[] = {.73f, .63f, .63f, .5f};
+		float shininess = 76.8f;
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specluar);
+		
+		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+	}
 
 }

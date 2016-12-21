@@ -162,7 +162,9 @@ public class DisplayManager {
     		} else if(state == State.MAIN_MENU) {
             	currentXpos = xpos;
             	currentYpos = ypos;
-            	menu.setRotationParam(WIDTH, currentXpos, currentYpos);
+            	if(inWindow == true){
+            		menu.setRotationParam(WIDTH, currentXpos, currentYpos);
+            	}
             	
             }
     	});
@@ -202,6 +204,7 @@ public class DisplayManager {
         terrain = new Terrain(index);
         scene.setTerrain(terrain);
         player.setTerrain(terrain);
+        camera.setTerrain(terrain);
         
     }
 
