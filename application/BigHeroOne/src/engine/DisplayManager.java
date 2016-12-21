@@ -33,7 +33,7 @@ public class DisplayManager {
     private static float delta;
 
     private static State state = State.MAIN_MENU;
-    private static State lastState = State.GAME;
+    private static State lastState = State.LEVEL_ONE;
 	private static boolean mouseLeft = false;
 	private static boolean mouseRight = false;
 	private Model model = new Model();
@@ -74,7 +74,7 @@ public class DisplayManager {
     }
     
     public enum State {
-    	GAME, MAIN_MENU;
+    	LEVEL_ONE, LEVEL_TWO, MAIN_MENU;
     }
 
     private void init()
@@ -107,20 +107,20 @@ public class DisplayManager {
             
             if ( key == GLFW_KEY_SPACE && action == GLFW_RELEASE ) {
         		if(state == State.MAIN_MENU) {
-        			state = State.GAME;
+        			state = State.LEVEL_ONE;
         			lastState = State.MAIN_MENU;
         			menu.turnOff();        			
         		}
-        		else if(state == State.GAME) {
+        		else if(state == State.LEVEL_ONE) {
         			scene.disableLightning();
         			state = State.MAIN_MENU;
-        			lastState = State.GAME;
+        			lastState = State.LEVEL_ONE;
         		}
             }
         });
         // Setup a scroll callback
         glfwSetScrollCallback(window, GLFWScrollCallback.create((window, xoffset, yoffset) -> {
-            if(state == State.GAME){
+            if(state == State.LEVEL_ONE){
         		int temp = (int) yoffset;
 	        	Camera.dyZoom = (float) temp;
             } else if(state == State.MAIN_MENU) {
@@ -131,7 +131,7 @@ public class DisplayManager {
         
         // Setup a mouse callback 
         glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-        	if(state == State.GAME){
+        	if(state == State.LEVEL_ONE){
 	        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
 	        		setMouseLeft(true);
 	        	}
@@ -147,7 +147,7 @@ public class DisplayManager {
         	} else if(state == State.MAIN_MENU) {
         		if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
         			if((Math.pow(currentXpos-WIDTH/2., 2) + Math.pow(currentYpos-WIDTH/2., 2)) <= Math.pow(WIDTH/3.9, 2)){
-	        				state = State.GAME;
+	        				state = State.LEVEL_ONE;
 	        				lastState = State.MAIN_MENU;
 	        				menu.turnOff();
         				}   		
@@ -156,7 +156,7 @@ public class DisplayManager {
         });
     
         glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
-    		if(state == State.GAME) {
+    		if(state == State.LEVEL_ONE) {
     			Camera.dxRotate = (float) xpos;
         		Camera.dyPitch = (float) ypos;
     		} else if(state == State.MAIN_MENU) {
@@ -216,10 +216,12 @@ public class DisplayManager {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
     	switch (state) {
-		case GAME:
+		case LEVEL_ONE:
 			scene.initGLState();			
 			break;
-
+		case LEVEL_TWO:
+			scene.initGLState();			
+			break;
 		case MAIN_MENU:
 			menu.initMenu();
 			break;
@@ -235,14 +237,18 @@ public class DisplayManager {
             glEnable(GL_DEPTH_TEST);
             
             switch(state) {
-            case GAME:
+            case LEVEL_ONE:
             	if(lastState == State.MAIN_MENU)
             		scene.initGLState();
             	scene.renderLoop();
             	break;
-            	
+            case LEVEL_TWO:
+            	if(lastState == State.MAIN_MENU)
+            		scene.initGLState();
+            	scene.renderLoop();
+            	break;
             case MAIN_MENU:
-            	if(lastState == State.GAME)
+            	if(lastState == State.LEVEL_ONE || lastState == State.LEVEL_TWO)
             		menu.initMenu();
             	menu.renderMenu();
             	break;
@@ -270,8 +276,15 @@ public class DisplayManager {
             delta = (float) (currentFrameTime - lastFrameTime) / 1000;
             lastFrameTime = currentFrameTime;
             if(player.getPosition().x < 20 && 
-            		(player.getPosition().z > 393 && player.getPosition().z < 513))
+            		(player.getPosition().z > 393 && player.getPosition().z < 513) && state == State.LEVEL_TWO)
             	glfwSetWindowShouldClose(window, true);
+            else if(player.getPosition().x < 20 && 
+            		(player.getPosition().z > 393 && player.getPosition().z < 513) && state == State.LEVEL_ONE) {
+            	state = State.LEVEL_TWO;
+            	terrain.loadLevelTwo();
+            	player.setPosition(new Vector3f(65, 0, 80));
+            	player.setRotY(240);
+            }
         }
     }
     

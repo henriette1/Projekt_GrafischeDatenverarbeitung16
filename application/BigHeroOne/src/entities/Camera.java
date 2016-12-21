@@ -14,6 +14,8 @@ public class Camera {
 	public static float dxRotate; //contains value of left mousebutton Callback
 	public static float dyPitch; //contains the value of right mousebutton callback
 	public static float dyZoom; // contains the value of ScrollCallback
+	private float maxZoom = 50f;
+	private float minZoom = 15f; 
 	private Vector2f mousePosStart = new Vector2f(0,0); //starting position of our cursor
 	private float distanceFromPlayer = 20; // distance between camera and player
 	private float angleAroundPlayer = 0; //angle around player (free camera movement on a circle around the Player
@@ -111,11 +113,11 @@ public class Camera {
 	 * calculates the length of the Vector between camera and player
 	 */
 	private void calculateZoom() {
-		if (distanceFromPlayer < 2f) {
-			distanceFromPlayer = 2f;
+		if (distanceFromPlayer < minZoom) {
+			distanceFromPlayer = minZoom;
 		}
-		else if (distanceFromPlayer > 100f) {
-			distanceFromPlayer = 100f;
+		else if (distanceFromPlayer > maxZoom) {
+			distanceFromPlayer = maxZoom;
 		}
 		else {
 			float zoomLevel = dyZoom * 0.5f;

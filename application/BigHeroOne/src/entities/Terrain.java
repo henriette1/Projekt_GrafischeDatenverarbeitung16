@@ -24,7 +24,7 @@ public class Terrain {
 	private int HEIGHT;
 	
 	public Terrain(int index) {
-		loadHeightMap();
+		loadLevelOne();
 		this.index = index;
 		compileCaveList();
 		compileGroundList();
@@ -54,12 +54,24 @@ public class Terrain {
 //		glPopMatrix();
 	};
 	
-	private void loadHeightMap() {
+	private void loadLevelOne() {
 		try {
 			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMap3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	public void loadLevelTwo() {
+		glDeleteLists(this.index, 1);
+		
+		try {
+			HeightMapMesh = ImageIO.read(getClass().getResource("/images/heightMapLvl2_2.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		compileCaveList();
 	}
 	
 	private void compileCaveList() {
@@ -72,7 +84,6 @@ public class Terrain {
 			for(int z = 0; z < m*(HEIGHT-1); z++) {
 				glBegin(GL_TRIANGLE_STRIP);
 				for(int x = 0; x < m*WIDTH; x++) {
-					
 					heightMapCoords[x][z] = getHeight(x, z, HeightMapMesh);
 					
 					Vector3f drawnVecOne = new Vector3f(x/m, 

@@ -10,7 +10,7 @@ import entities.Terrain;
 public class Player extends Entity {
 
 	private static final float RUN_SPEED = 50; //speed of our player while walking
-	private static final float TURN_SPEED = 160; // how fast can our player turn
+	private static final float TURN_SPEED = 190; // how fast can our player turn
 	
 	private float currentSpeed = 0;
 	private float currentTurnSpeed =0;
