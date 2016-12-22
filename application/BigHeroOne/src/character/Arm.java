@@ -9,7 +9,7 @@ import engine.Utils;
 
 public class Arm{
 
-	public void drawArm()
+	public void drawArm(float winkel)
 	{	
 		glPushMatrix();
 			glPushMatrix();
@@ -17,17 +17,32 @@ public class Arm{
 				doUpperJoint();
 			glPopMatrix();
 			doUpperArm();			
-//			doJoint();
 			doForeArm();
 			glTranslatef(0, -intervalArm, 0);
 			doHand();
 		glPopMatrix();
 	}
 	
-	// private Variablen
+	public void drawOrthogonalArm()
+	{
+		glPushMatrix();
+			glPushMatrix();
+				glTranslatef(0, intervalArm, 0);
+				doUpperJoint();
+			glPopMatrix();
+			doUpperArm();			
+			doJoint();
+			glRotatef(-90, 1, 0, 0);
+			doForeArm();
+			glTranslatef(0, -intervalArm, 0);
+			doHand();
+		glPopMatrix();
+	}
+	
+	// private Variables
 		int mArm = 60;															//u-Steps
 		int nArm = 60;															//v-Steps
-		float intervalArm = 3;													//Interval where teh function is calculated
+		float intervalArm = 3;													//Interval where the function is calculated
 		float u_iUpperArm , u_i_1UpperArm , v_jUpperArm , v_j_1UpperArm;		//Corners of a facet
 		float 	uaUpperArm = 0.f, ueUpperArm = (float) intervalArm ,			//Start and End of the u-Area
 				vaUpperArm = 0.f, veUpperArm = (float)(2*Math.PI);				//Start and End of the v-Area
@@ -124,8 +139,8 @@ public class Arm{
 	}
 	
 	
-	int mHand = 30;																//u-Steps
-	int nHand = 30;																//v-Steps
+	int mHand = 60;																//u-Steps
+	int nHand = 60;																//v-Steps
 	float u_iHand , u_i_1Hand , v_jHand , v_j_1Hand;							//corners of a facet
 	float 	uaHand = 0, ueHand = (float) (Math.PI) ,							//Start and End of the u-Area
 			vaHand = 0, veHand = (float)(Math.PI);								//Start and End of the v-Area
@@ -181,8 +196,8 @@ public class Arm{
 		return (float)(rHand*Math.cos(u));
 	}
 	
-	int mJoint = 30;																//u-Steps
-	int nJoint = 30;																//v-Steps
+	int mJoint = 60;																//u-Steps
+	int nJoint = 60;																//v-Steps
 	float u_iJoint , u_i_1Joint , v_jJoint , v_j_1Joint;							//corners of a facet
 	float 	uaJoint = 0, ueJoint = (float) (Math.PI) ,								//Start and End of the u-Area
 			vaJoint = 0, veJoint = (float) (2*Math.PI);								//Start and End of the v-Area
@@ -207,7 +222,7 @@ public class Arm{
 			Vector3f normal = Utils.normalVector(
 					new Vector3f(xJoint(u_iJoint,v_jJoint), yJoint(u_iJoint,v_jJoint), zJoint(u_iJoint, v_jJoint)),
 					new Vector3f(xJoint(u_i_1Joint,v_jJoint), yJoint(u_i_1Joint,v_jJoint), zJoint(u_i_1Joint, v_jJoint)),
-					new Vector3f(xJoint(u_iJoint,v_j_1Joint), yJoint(u_iJoint,v_j_1Joint), zJoint(u_iJoint, v_j_1Joint)));
+					new Vector3f(xJoint(u_iJoint,v_j_1Joint), yJoint(u_iJoint,v_j_1Joint), zJoint(u_iJoint, v_j_1Joint))).mul(-1);
 			
 			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);

@@ -19,8 +19,8 @@ public class Player extends Entity {
 	int direction = 1; //1 for forwards, 0 for backwards
 	private Terrain terrain; // entity object for our terrain
 	
-	private float[][] HEIGHT_MAP;		
-	private float[][] COLLISION_MAP;		// Eintrag 1, falls Feld durch Objekt belegt, 0 sonst
+	private float[][] heightMap;			//needed to initialize our collision map
+	private float[][] collisionMap;		//checks the next position of our player model
 
 	Vector3f movementDirection;
 	
@@ -47,14 +47,13 @@ public class Player extends Entity {
 	 * method checks keyboard inputs, which enables us to walk and turn
 	 */
 	public void checkInputs(int key, int action) {
-		HEIGHT_MAP = setHeightMap();
-		COLLISION_MAP = initiateCollision();		
+		heightMap = setHeightMap();
+		collisionMap = initiateCollision();		
 		this.currentSpeed = 0;
-		this.currentTurnSpeed = 0;
-		
+		this.currentTurnSpeed = 0;		
 		
 		if ( key == GLFW_KEY_W && (action == GLFW_REPEAT)) {
-			if(COLLISION_MAP[(int)(getPosition().x + movementDirection.x)][(int)(getPosition().z + movementDirection.z)] == 0){
+			if(collisionMap[(int)(getPosition().x + movementDirection.x)][(int)(getPosition().z + movementDirection.z)] == 0){
 				if(getMoveAngle() >= 30 && direction == 1)
 				{
 					direction = -1;
@@ -69,7 +68,7 @@ public class Player extends Entity {
         }
 		
 		if ( key == GLFW_KEY_S && (action == GLFW_REPEAT) ) {	
-			if(COLLISION_MAP[(int)(getPosition().x - movementDirection.x)][(int)(getPosition().z - movementDirection.z)] == 0){
+			if(collisionMap[(int)(getPosition().x - movementDirection.x)][(int)(getPosition().z - movementDirection.z)] == 0){
 				if(getMoveAngle() >= 30 && direction == 1)
 				{
 					direction = -1;
@@ -83,10 +82,10 @@ public class Player extends Entity {
 			}
         }
 		
-        if ( key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS) ) {
+        if ( key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS) ) {
         	this.currentTurnSpeed = -TURN_SPEED;
         }
-        if ( key == GLFW_KEY_D && (action == GLFW_REPEAT || action == GLFW_PRESS) ) {
+        if ( key == GLFW_KEY_A && (action == GLFW_REPEAT || action == GLFW_PRESS) ) {
         	this.currentTurnSpeed = TURN_SPEED;
         }        
         
@@ -107,7 +106,7 @@ public class Player extends Entity {
 		float[][] helpMap = new float[513][513];
 	 	for(int j= 1; j<helpMap.length-1; j++){
 	 		for(int i=1; i<helpMap[1].length-1; i++){
-	 			if(HEIGHT_MAP[i][j] > -15 && HEIGHT_MAP[i][j] < -4){
+	 			if(heightMap[i][j] > -15 && heightMap[i][j] < -4){
 	 				helpMap[i][j]=1;
 	 			}
 	 		}

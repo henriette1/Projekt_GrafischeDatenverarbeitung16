@@ -12,8 +12,7 @@ import entities.Terrain;
 import entities.Player;
 
 public class Scene {
-	// private Variablen
-
+	// private Variables
 	private float aspect = 1;
 	private float fovy = 90;
 	private float zNear = .1f;
@@ -72,7 +71,6 @@ public class Scene {
 		glLoadMatrixf(fb);
 		
 		glPushMatrix();
-//			glLoadIdentity();
 			updateSpotLight();
 			updatePointLight();
 		glPopMatrix();
@@ -123,8 +121,7 @@ public class Scene {
 	private void updateSpotLight() {
 		float light0_position[] = { player.getPosition().x, 16.0f, player.getPosition().z, 1.0f }; // x,y,z,1
 		float light0_diff_spec[] = { 1f, 1f, 1f, 1.0f };
-		float light0_direction[] = {calculateVectorDirectionBetweenEyeAndCenter().x,calculateVectorDirectionBetweenEyeAndCenter().y,calculateVectorDirectionBetweenEyeAndCenter().z, 1f};
-		
+		float light0_direction[] = {-(float)Math.sin(Math.toRadians(player.getRotY())),0,-(float)Math.cos(Math.toRadians(player.getRotY())), 1f};
 		// Eine weitere Lichtquellen definieren
 		spotLight.setPosition(light0_position);
 		spotLight.setCutoff(45.f);

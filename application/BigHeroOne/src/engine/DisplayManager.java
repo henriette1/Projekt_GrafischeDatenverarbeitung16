@@ -19,12 +19,13 @@ import entities.Model;
 import entities.Player;
 
 public class DisplayManager {
-	  // The window handle
+	
+	// The window handle
     private long window;
 
     private Scene scene = new Scene();
     private Menu menu = new Menu();
-    private int WIDTH = 700, HEIGHT = 700;
+    private int WIDTH = 1024, HEIGHT = 1024;
     
     private static final int FPS_CAP = 120;
     private long variableYieldTime, lastTime;
@@ -45,7 +46,6 @@ public class DisplayManager {
 	private Terrain terrain;
 
 	private double currentYpos;
-
 	private double currentXpos;
 
 
@@ -111,6 +111,11 @@ public class DisplayManager {
         			lastState = State.MAIN_MENU;
         			menu.turnOff();        			
         		}
+        		else if(state == State.LEVEL_TWO) {
+        			scene.disableLightning();
+        			state = State.MAIN_MENU;
+        			lastState = State.LEVEL_TWO;
+        		}
         		else if(state == State.LEVEL_ONE) {
         			scene.disableLightning();
         			state = State.MAIN_MENU;
@@ -120,7 +125,7 @@ public class DisplayManager {
         });
         // Setup a scroll callback
         glfwSetScrollCallback(window, GLFWScrollCallback.create((window, xoffset, yoffset) -> {
-            if(state == State.LEVEL_ONE){
+            if(state == State.LEVEL_ONE || state == State.LEVEL_TWO){
         		int temp = (int) yoffset;
 	        	Camera.dyZoom = (float) temp;
             } else if(state == State.MAIN_MENU) {
@@ -131,7 +136,7 @@ public class DisplayManager {
         
         // Setup a mouse callback 
         glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-        	if(state == State.LEVEL_ONE){
+        	if(state == State.LEVEL_ONE || state == State.LEVEL_TWO){
 	        	if (button== GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS) {
 	        		setMouseLeft(true);
 	        	}
@@ -156,7 +161,7 @@ public class DisplayManager {
         });
     
         glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
-    		if(state == State.LEVEL_ONE) {
+    		if(state == State.LEVEL_ONE || state == State.LEVEL_TWO) {
     			Camera.dxRotate = (float) xpos;
         		Camera.dyPitch = (float) ypos;
     		} else if(state == State.MAIN_MENU) {

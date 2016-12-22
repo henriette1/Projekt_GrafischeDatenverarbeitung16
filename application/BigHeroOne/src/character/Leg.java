@@ -7,8 +7,7 @@ import org.joml.Vector3f;
 
 import engine.Utils;
 
-public class Leg {
-	
+public class Leg {	
 	
 	public void drawLeg()
 	{	
@@ -19,16 +18,16 @@ public class Leg {
 		glPopMatrix();
 	}
 	
-	// private Variablen
-	int mLeg = 30;															//u-Schritte
-	int nLeg = 30;															//v-Schritte
-	float intervalLeg = 2;													//u-Abschnitt
-	float u_iLeg , u_i_1Leg , v_jLeg , v_j_1Leg;							//Eckpunkte einer Facette
-	float 	uaLeg = -intervalLeg, ueLeg = (float) intervalLeg ,				//Anfang und Ende des u-Bereichs
-			vaLeg = 0, veLeg = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rLeg = 1;															//Radius 
+	// private Variables
+	int mLeg = 60;															//u-Steps
+	int nLeg = 60;															//v-Steps
+	float intervalLeg = 2;													//u-Interval
+	float u_iLeg , u_i_1Leg , v_jLeg , v_j_1Leg;							//corners of a facet
+	float 	uaLeg = -intervalLeg, ueLeg = (float) intervalLeg ,				//Start and End of the u-Area
+			vaLeg = 0, veLeg = (float)(2*Math.PI);							//Start and End of the v-Area
+	float deltaULeg = (float)(ueLeg-uaLeg)/mLeg;							//how big a single step is in u-Direction
+	float deltaVLeg = (float)(veLeg-vaLeg)/nLeg;							//how big a single step is in v-Direction
+	float rLeg = 1;															//Radius of the body of rotation
 	
 	private void doLeg()
 	{
@@ -37,7 +36,7 @@ public class Leg {
 		for(int i = 0; i<mLeg; i++){
 			for(int j = 0; j<nLeg; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet	
 			u_iLeg 		= uaLeg + i * deltaULeg;
 			u_i_1Leg 	= u_iLeg + deltaULeg;
 			v_jLeg 		= vaLeg + j * deltaVLeg;
@@ -48,7 +47,7 @@ public class Leg {
 					new Vector3f(xLeg(u_i_1Leg,v_jLeg), yLeg(u_i_1Leg,v_jLeg), zLeg(u_i_1Leg, v_jLeg)),
 					new Vector3f(xLeg(u_iLeg,v_j_1Leg), yLeg(u_iLeg,v_j_1Leg), zLeg(u_iLeg, v_j_1Leg)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xLeg(u_iLeg,v_jLeg),				yLeg(u_iLeg,v_jLeg), 			zLeg(u_iLeg, v_jLeg));
@@ -60,32 +59,27 @@ public class Leg {
 		}
 	}
 	
-	private float xLeg(float u, float v){
-			
-		return (float)(((0.1*u*u)-rLeg)*Math.sin(v)) ;
-	
+	private float xLeg(float u, float v){			
+		return (float)(((0.1*u*u)-rLeg)*Math.sin(v));	
 	}
 	
-	private float yLeg(float u, float v){
-		
+	private float yLeg(float u, float v){		
 		return (float)(u);
-
 	}	
 	
-	private float zLeg(float u, float v){
-		
-			return (float)(((0.1*u*u)-rLeg)*Math.cos(v)) ;
+	private float zLeg(float u, float v){		
+			return (float)(((0.1*u*u)-rLeg)*Math.cos(v));
 	}
 	
 	
-	int mFeet = 30;																	//u-Schritte
-	int nFeet = 30;																	//v-Schritte
-	float u_iFeet , u_i_1Feet , v_jFeet , v_j_1Feet;								//Eckpunkte einer Facette
-	float 	uaFeet = (float) 0, ueFeet = (float)(Math.PI),								//Anfang und Ende des u-Bereichs
-			vaFeet = 0, veFeet = (float)(Math.PI);									//Anfang und Ende des v-Bereichs
-	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rFeet = zLeg(ueLeg, vaLeg);												//Radius 
+	int mFeet = 60;																	//u-Steps
+	int nFeet = 60;																	//v-Steps
+	float u_iFeet , u_i_1Feet , v_jFeet , v_j_1Feet;								//corners of a facet
+	float 	uaFeet = (float) 0, ueFeet = (float)(Math.PI),							//Start and End of the u-Area
+			vaFeet = 0, veFeet = (float)(Math.PI);									//Start and End of the v-Area
+	float deltaUFeet = (float)(ueFeet-uaFeet)/mFeet;								//how big a single step is in u-Direction
+	float deltaVFeet = (float)(veFeet-vaFeet)/nFeet;								//how big a single step is in u-Direction
+	float rFeet = zLeg(ueLeg, vaLeg);												//Radius of the hemisphere
 	
 	
 	private void doFeet()
@@ -95,7 +89,7 @@ public class Leg {
 		for(int i = 0; i<mFeet; i++){
 			for(int j = 0; j<nFeet; j++){
 			
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet		
 			u_iFeet 	= uaFeet + i * deltaUFeet;
 			u_i_1Feet 	= u_iFeet + deltaUFeet;
 			v_jFeet 	= vaFeet + j * deltaVFeet;
@@ -106,7 +100,7 @@ public class Leg {
 					new Vector3f(xFeet(u_i_1Feet,v_jFeet), yFeet(u_i_1Feet,v_jFeet), zFeet(u_i_1Feet, v_jFeet)),
 					new Vector3f(xFeet(u_iFeet,v_j_1Feet), yFeet(u_iFeet,v_j_1Feet), zFeet(u_iFeet, v_j_1Feet)));
 			
-			//Erstellung einer Facette
+			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(normal.x, normal.y, normal.z);
 				glVertex3f(xFeet(u_iFeet,v_jFeet),			yFeet(u_iFeet,v_jFeet), 			zFeet(u_iFeet, v_jFeet));
@@ -118,29 +112,18 @@ public class Leg {
 		}
 	}
 	
-	private float xFeet(float u, float v){
-		
+	private float xFeet(float u, float v){		
 		return (float)(rFeet*Math.sin(u)*Math.cos(v));
-//		return (float)(feetFunction(u)*Math.sin(v));
 	}
 	
-	private float yFeet(float u, float v){
-		
+	private float yFeet(float u, float v){		
 		return (float) (rFeet*Math.sin(u)*Math.sin(v));
-//		return (float) feetFunction(u);
 	}	
 	
-	private float zFeet(float u, float v){
-		
+	private float zFeet(float u, float v){		
 		return (float)(rFeet*Math.cos(u));
-//		return (float)(feetFunction(u)*Math.cos(v));
 	}
-	
-	private float feetFunction(float u){
-//		return ((float)(((1./3)*u*u)+ 0.38));
-		return ((float)(Math.sqrt(-3*u-1.14)));
-	}
-	
+
 	public float getHeight(){
 		return (2*intervalLeg+rFeet);
 	}

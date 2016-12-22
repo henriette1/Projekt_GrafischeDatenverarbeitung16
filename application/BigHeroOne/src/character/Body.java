@@ -21,18 +21,16 @@ public class Body {
 		glPopMatrix();
 	}
 
-	int mLowerBody = 30;																//u-Steps
-	int nLowerBody = 30;																//v-Steps
-	float aLower = 3.f;																	//length in x-Direction
+	int mLowerBody = 60;																//u-Steps
+	int nLowerBody = 60;																//v-Steps
+	float aLower = 2.9f;																//length in x-Direction
 	float bLower = 2.f;																	//length in y-Direction
-	float cLower = 3.f;																	//length in z-Direction
+	float cLower = 2.9f;																//length in z-Direction
 	float u_iLowerBody , u_i_1LowerBody , v_jLowerBody , v_j_1LowerBody;				//corners of a facet
 	float 	uaLowerBody = 0, ueLowerBody = (float) (2*Math.PI) ,						//Start and End of the u-Area
 			vaLowerBody = (float)(-Math.PI/2), veLowerBody = (float)0;					//Start and End of the v-Area
 	float deltaULowerBody = (float)(ueLowerBody-uaLowerBody)/mLowerBody;				//how big a single step is in u-Direction
-	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;				//how big a single step is in v-Direction
-	float rLowerBody = 5.f;																//Radius of the sphere
-	
+	float deltaVLowerBody = (float)(veLowerBody-vaLowerBody)/nLowerBody;				//how big a single step is in v-Direction	
 	
 	private void doLowerBody()
 	{
@@ -50,7 +48,7 @@ public class Body {
 			Vector3f normal = Utils.normalVector(
 					new Vector3f(xLowerBody(u_iLowerBody,v_jLowerBody), yLowerBody(u_iLowerBody,v_jLowerBody), zLowerBody(u_iLowerBody, v_jLowerBody)),
 					new Vector3f(xLowerBody(u_i_1LowerBody,v_jLowerBody), yLowerBody(u_i_1LowerBody,v_jLowerBody), zLowerBody(u_i_1LowerBody, v_jLowerBody)),
-					new Vector3f(xLowerBody(u_iLowerBody,v_j_1LowerBody), yLowerBody(u_iLowerBody,v_j_1LowerBody), zLowerBody(u_iLowerBody, v_j_1LowerBody))).mul(1);
+					new Vector3f(xLowerBody(u_iLowerBody,v_j_1LowerBody), yLowerBody(u_iLowerBody,v_j_1LowerBody), zLowerBody(u_iLowerBody, v_j_1LowerBody)));
 			
 			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
@@ -80,8 +78,8 @@ public class Body {
 	}
 		
 	
-	int mUpperBody = 30;															//u-Steps
-	int nUpperBody = 30;															//v-Steps
+	int mUpperBody = 60;															//u-Steps
+	int nUpperBody = 60;															//v-Steps
 	float aUpper = 2.f;																//x-Direction
 	float bUpper = 1.f;																//y-Direction
 	float cUpper = 2.f;																//z-Direction
@@ -109,7 +107,7 @@ public class Body {
 			Vector3f normal = Utils.normalVector(
 					new Vector3f(xUpperBody(u_iUpperBody,v_jUpperBody), yUpperBody(u_iUpperBody,v_jUpperBody), zUpperBody(u_iUpperBody, v_jUpperBody)),
 					new Vector3f(xUpperBody(u_i_1UpperBody,v_jUpperBody), yUpperBody(u_i_1UpperBody,v_jUpperBody), zUpperBody(u_i_1UpperBody, v_jUpperBody)),
-					new Vector3f(xUpperBody(u_iUpperBody,v_j_1UpperBody), yUpperBody(u_iUpperBody,v_j_1UpperBody), zUpperBody(u_iUpperBody, v_j_1UpperBody))).mul(-1);
+					new Vector3f(xUpperBody(u_iUpperBody,v_j_1UpperBody), yUpperBody(u_iUpperBody,v_j_1UpperBody), zUpperBody(u_iUpperBody, v_j_1UpperBody)));
 			
 			//builds a facet
 			glBegin(GL_TRIANGLE_STRIP);
@@ -139,15 +137,15 @@ public class Body {
 	}
 	
 	// private Variablen
-	int mMiddleBody = 30;															//u-Schritte
-	int nMiddleBody = 30;															//v-Schritte
-	float intervalMiddleBody = 3;													//u-Abschnitt
-	float u_iMiddleBody , u_i_1MiddleBody , v_jMiddleBody , v_j_1MiddleBody;							//Eckpunkte einer Facette
-	float 	uaMiddleBody = -intervalMiddleBody, ueMiddleBody = (float) intervalMiddleBody ,				//Anfang und Ende des u-Bereichs
-			vaMiddleBody = 0, veMiddleBody = (float)(2*Math.PI);							//Anfang und Ende des v-Bereichs
-	float deltaUMiddleBody = (float)(ueMiddleBody-uaMiddleBody)/mMiddleBody;							//wie gro� ein einzelner Teilschritt sein muss in u-Richtung
-	float deltaVMiddleBody = (float)(veMiddleBody-vaMiddleBody)/nMiddleBody;							//wie gro� ein einzelner Teilschritt sein muss in v-Richtung
-	float rMiddleBody = 2.5f;															//Radius 
+	int mMiddleBody = 60;																	//u-Steps
+	int nMiddleBody = 60;																	//v-Steps
+	float intervalMiddleBody = 3.f;															//u-Interval
+	float u_iMiddleBody , u_i_1MiddleBody , v_jMiddleBody , v_j_1MiddleBody;				//Corners of a facet
+	float 	uaMiddleBody = -intervalMiddleBody, ueMiddleBody = (float) intervalMiddleBody,	//Start and End of the u-Area
+			vaMiddleBody = 0, veMiddleBody = (float)(2*Math.PI);							//Start and End of the v-Area
+	float deltaUMiddleBody = (float)(ueMiddleBody-uaMiddleBody)/mMiddleBody;				//how big a single step is in u-Direction
+	float deltaVMiddleBody = (float)(veMiddleBody-vaMiddleBody)/nMiddleBody;				//how big a single step is in v-Direction
+	float rMiddleBody = 2.5f;																//Radius for the body of rotation
 
 	private void doMiddleBody()
 	{
@@ -156,7 +154,7 @@ public class Body {
 		for(int i = 0; i<mMiddleBody; i++){
 			for(int j = 0; j<nMiddleBody; j++){
 					
-			//Eckpunkte einer Facette deklarieren	
+			//declares corners of a facet	
 			u_iMiddleBody 		= uaMiddleBody + i * deltaUMiddleBody;
 			u_i_1MiddleBody 	= u_iMiddleBody + deltaUMiddleBody;
 			v_jMiddleBody 		= vaMiddleBody + j * deltaVMiddleBody;
@@ -165,18 +163,13 @@ public class Body {
 			Vector3f normal1 = Utils.normalVector(
 					new Vector3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody), yMiddleBody(u_iMiddleBody,v_jMiddleBody), zMiddleBody(u_iMiddleBody, v_jMiddleBody)),
 					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
-					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody))).mul(1);
-			Vector3f normal2 = Utils.normalVector(
-					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody)),
-					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody), yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), zMiddleBody(u_i_1MiddleBody, v_jMiddleBody)),
-					new Vector3f(xMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody), yMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody), zMiddleBody(u_i_1MiddleBody, v_j_1MiddleBody)));
+					new Vector3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody), yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), zMiddleBody(u_iMiddleBody, v_j_1MiddleBody)));
 			
 			//Erstellung einer Facette
 			glBegin(GL_TRIANGLE_STRIP);	
 				glNormal3f(normal1.x, normal1.y, normal1.z);
 				glVertex3f(xMiddleBody(u_iMiddleBody,v_jMiddleBody),				yMiddleBody(u_iMiddleBody,v_jMiddleBody), 			zMiddleBody(u_iMiddleBody, v_jMiddleBody));
 				glVertex3f(xMiddleBody(u_i_1MiddleBody,v_jMiddleBody),			yMiddleBody(u_i_1MiddleBody,v_jMiddleBody), 			zMiddleBody(u_i_1MiddleBody, v_jMiddleBody));
-				glNormal3f(normal2.x, normal2.y, normal2.z);
 				glVertex3f(xMiddleBody(u_iMiddleBody,v_j_1MiddleBody),			yMiddleBody(u_iMiddleBody,v_j_1MiddleBody), 			zMiddleBody(u_iMiddleBody, v_j_1MiddleBody));
 				glVertex3f(xMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody),			yMiddleBody(u_i_1MiddleBody,v_j_1MiddleBody),		zMiddleBody(u_i_1MiddleBody, v_j_1MiddleBody));
 			glEnd();

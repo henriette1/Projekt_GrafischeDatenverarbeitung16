@@ -38,9 +38,6 @@ public class Terrain {
 			// call list containing the cave coordinates
 			glCallList(this.index);
 		glPopMatrix();
-//		glPushMatrix();
-//			glCallList(this.index+2);
-//		glPopMatrix();
 	}
 	
 	public void generateGround() {
@@ -49,10 +46,7 @@ public class Terrain {
 			//call list containing the ground
 			glCallList(this.index + 1);
 		glPopMatrix();
-//		glPopMatrix();
-//			glCallList(this.index+3);
-//		glPopMatrix();
-	};
+	}
 	
 	private void loadLevelOne() {
 		try {
