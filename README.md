@@ -1,11 +1,11 @@
 # Computer Graphics
 
-##Links
+## Links
 preview Video: https://youtu.be/-N56IwJIMZ8
 
-##Technology
+## Technology
 * Java
 * OpenGL (LWJGL 3.0)
 
-##About
+## About
 Using simple vertex geometry and the tools LWJGL provides, we tried to create a small dungeon escape jump'n'run game.
